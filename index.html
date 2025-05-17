@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh Start Cleaning | Professional Home Cleaning in Augusta, GA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue: #75c6ed;
+            --green: #7bfa97;
+            --orange: #ffa500;
+            --black: #000000;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            scroll-behavior: smooth;
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        .fancy-text {
+            font-family: 'Quicksand', sans-serif;
+            color: #ffffff !important;
+            text-shadow: 
+                2px 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 1px;
+            font-weight: 700;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .dancing-penguin-container {
+            width: 300px;
+            height: 300px;
+            position: fixed;
+            cursor: move;
+            touch-action: none;
+            z-index: 9999;
+            background: transparent;
+            pointer-events: all;
+            left: 0;
+            top: 0;
+        }
+
+        .dancing-penguin-container canvas {
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        #penguin-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .comic-font {
+            font-family: 'Comic Neue', cursive;
+        }
+
+        /* Navbar */
+        .navbar {
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .navbar.scrolled {
+            background-color: var(--white);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--orange);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--blue) 0%, var(--green) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            background-color: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 100vh) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(var(--tx), -100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .bubble {
+            position: absolute;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
+            border-radius: 50%;
+            pointer-events: none;
+            --tx: 0px;
+        }
+
+        /* Penguin Animation */
+        .penguin {
+            animation: dance 4s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+
+        @keyframes dance {
+            0%, 100% {
+                transform: rotate(-5deg);
+            }
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        /* Water Spritz Effect */
+        .water-spritz {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-spritz::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            transform: scale(0);
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+
+        .water-spritz:hover::after {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* Service Cards */
+        .service-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Soap Bubble Background */
+        .bubble-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bubble-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 20%),
+                              radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 20%);
+            animation: bubble-move 20s linear infinite;
+        }
+
+        @keyframes bubble-move {
+            0% {
+                background-position: 0 0, 0 0;
+            }
+            100% {
+                background-position: 100px 100px, -100px -100px;
+            }
+        }
+
+        /* Footer Bubbles */
+        .footer-bubble {
+            position: absolute;
+            background-color: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            animation: rise 8s linear infinite;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Section Dividers */
+        .wave-divider {
+            position: absolute;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            left: 0;
+        }
+
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+
+        .wave-divider .shape-fill {
+            fill: var(--blue);
+        }
+
+        .suds-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            pointer-events: none;
+            z-index: 9999;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
+                rgba(255,255,255,0.8) 0%,
+                rgba(255,255,255,0.4) 20%,
+                rgba(255,255,255,0.1) 40%,
+                transparent 60%);
+            opacity: 0;
+            animation: sudsAppear 1s ease-out forwards;
+        }
+
+        @keyframes sudsAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2);
+            }
+        }
+
+        /* Pulse Animation */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Rotating Icon */
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .rotate {
+            animation: rotate 10s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar fixed w-full z-50 bg-white/90 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#home" onclick="event.preventDefault(); smoothScroll('home')" class="flex items-center">
+                <img src="static/images/fs_logo.png" alt="Fresh Start Cleaning Logo" class="h-12 mr-2">
+                <span class="text-xl font-bold text-black">Fresh Start Cleaning</span>
+            </a>
+            <div id="nav-links" class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('home'); toggleMenu()">Home</a>
+                <a href="#services" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('services'); toggleMenu()">Services</a>
+                <a href="#before-after" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('before-after'); toggleMenu()">Before & After</a>
+                <a href="#about" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('about'); toggleMenu()">About</a>
+                <a href="#testimonials" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('testimonials'); toggleMenu()">Testimonials</a>
+                <a href="#contact" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('contact'); toggleMenu()">Contact</a>
+            </div>
+            <button class="md:hidden focus:outline-none" onclick="toggleMenu()">
+                <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <div id="nav-links" class="hidden absolute top-full left-0 right-0 bg-white shadow-lg md:shadow-none md:flex md:relative md:top-auto md:bg-transparent w-full md:w-auto">
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <!-- Video Background -->
+        <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
+            <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                <source src="static/images/IMG_3109.mp4" type="video/mp4">
+            </video>
+            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+        </div>
+
+        <!-- Soap Bubbles -->
+        <div class="bubbles absolute inset-0 pointer-events-none z-10">
+            <div class="bubble-container"></div>
+        </div>
+
+        <style>
+            .bubble-container {
+                width: 100%;
+                height: 100%;
+                position: relative;
+            }
+
+            .soap-bubble {
+                position: absolute;
+                border-radius: 50%;
+                background: radial-gradient(circle at 33% 33%, 
+                    rgba(255,255,255,0.3),
+                    rgba(255,255,255,0.2) 40%,
+                    rgba(255,255,255,0.1) 60%,
+                    rgba(255,255,255,0) 70%);
+                box-shadow: inset 0 0 20px rgba(255,255,255,0.5),
+                           inset 0 0 50px rgba(255,255,255,0.2);
+                animation: float-up var(--float-time) ease-in forwards;
+                opacity: 0;
+            }
+
+            @keyframes float-up {
+                0% {
+                    transform: translateY(100vh) translateX(0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 0.8;
+                }
+                90% {
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: translateY(-20vh) translateX(var(--float-distance));
+                    opacity: 0;
+                }
+            }
+        </style>
+
+        <script>
+            function createBubble() {
+                const bubble = document.createElement('div');
+                bubble.className = 'soap-bubble';
+
+                const size = Math.random() * 50 + 20;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.setProperty('--float-distance', `${(Math.random() - 0.5) * 200}px`);
+                bubble.style.setProperty('--float-time', `${Math.random() * 3 + 4}s`);
+
+                const container = document.querySelector('.bubble-container');
+                container.appendChild(bubble);
+
+                bubble.addEventListener('animationend', () => {
+                    bubble.remove();
+                });
+            }
+
+            // Create bubbles periodically
+            setInterval(createBubble, 300);
+        </script>
+
+        <!-- Soap Bubbles -->
+        <div id="bubbles-container" class="absolute inset-0 pointer-events-none"></div>
+
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center relative z-10">
+            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0">
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 fancy-text">A Fresh Start To Your Day!</h1>
+                <p class="text-xl text-white mb-8 fancy-text">Professional Home Cleaning You Can Count On</p>
+                <button onclick="smoothScroll('contact'); return false;" class="water-spritz bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105">
+                    Get a Free Quote
+                </button>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <div id="hero-penguin" class="dancing-penguin-container">
+                    <canvas id="penguin-canvas-hero"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wave Divider -->
+        
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-black mb-4 comic-font">Our Cleaning Services</h2>
+                <div class="w-20 h-1 bg-orange-500 mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Regular Cleaning -->
+                <div class="service-card bg-blue-50 rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-100 p-4 rounded-full mr-4">
+                            <svg class="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-black">Regular Cleaning (Upkeep)</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Furniture dusted/polished</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Kitchen counters</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Inside/outside microwave</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Wipe exterior appliance surfaces</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>All floors swept, mopped, and vacuumed</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Bathrooms cleaned, including tub, toilet, sink, vanity, and mirrors</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Deep Cleaning -->
+                <div class="service-card bg-green-50 rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-green-100 p-4 rounded-full mr-4">
+                            <svg class="w-8 h-8 text-green-500 rotate" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-black">Deep Cleaning</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Furniture dusted/polished</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Kitchen counters AND backsplash</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Inside/outside microwave</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Wipe exterior appliance surfaces</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>All floors swept, mopped, and vacuumed</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Bathrooms cleaned, including tub, toilet, sink, vanity, and mirrors</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Clean baseboards</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Wipe blinds</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Clean ceiling fans</span>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <!-- Expanded Move-In/Out Section -->
+                <div class="service-card bg-orange-50 rounded-xl p-8 md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-orange-100 p-4 rounded-full mr-4">
+                            <svg class="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-black">Move-In/Out Top to Bottom Service</h3>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Kitchen counters AND backsplash</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Inside/outside microwave</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Wipe exterior appliance surfaces</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>All floors swept, mopped, and vacuumed</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Bathrooms cleaned, including tub, toilet, sink, vanity, and mirrors</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Clean baseboards</span>
+                            </li>
+                        </ul>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="roundround" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Wipe blinds AND window sills</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Clean ceiling fans AND fixtures</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Remove all cobwebs</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Wipe all doors, door frames, and faceplates</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Wipe interior and exterior of all cabinets throughout home</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span>Full fridge and oven cleaning can be added for $20 each</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <p class="text-lg font-bold text-green-600">Become a regular to receive additional discounts on future Deep Cleans and Move-In/Out Cleans!</p>
+                    </div>
+                </div>
+                <div id="services-penguin" class="dancing-penguin-container">
+                    <canvas id="penguin-canvas-services"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Before and After Section -->
+    <section id="before-after" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-black mb-4">Before & After</h2>
+                <div class="w-20 h-1 bg-orange-500 mx-auto"></div>
+                <p class="mt-4 text-gray-600">See the difference our cleaning makes</p>
+            </div>
+
+            <div class="grid md:grid-cols-1 gap-16">
+                <!-- First Before/After -->
+                <div class="before-after-slider relative h-[500px] overflow-hidden rounded-xl shadow-2xl">
+                    <img src="static/images/IMG_1402.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
+                    <div class="before-image absolute top-0 left-0 h-full w-1/2 overflow-hidden">
+                        <img src="static/images/IMG_1401.jpg" alt="After Cleaning" class="w-full h-full object-cover">
+                    </div>
+                    <div class="slider-handle absolute top-0 bottom-0 left-1/2 w-1 bg-white cursor-ew-resize transform -translate-x-1/2">
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second Before/After -->
+                <div class="before-after-slider relative h-[500px] overflow-hidden rounded-xl shadow-2xl">
+                    <img src="static/images/IMG_1485.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
+                    <div class="before-image absolute top-0 left-0 h-full w-1/2 overflow-hidden">
+                        <img src="static/images/IMG_1490.jpg" alt="After Cleaning" class="w-full h-full object-cover">
+                    </div>
+                    <div class="slider-handle absolute top-0 bottom-0 left-1/2 w-1 bg-white cursor-ew-resize transform -translate-x-1/2">
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third Before/After -->
+                <div class="before-after-slider relative h-[500px] overflow-hidden rounded-xl shadow-2xl">
+                    <img src="static/images/IMG_2511.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
+                    <div class="before-image absolute top-0 left-0 h-full w-1/2 overflow-hidden">
+                        <img src="static/images/IMG_2513.jpg" alt="After Cleaning" class="w-full h-full object-cover">
+                    </div>
+                    <div class="slider-handle absolute top-0 bottom-0 left-1/2 w-1 bg-white cursor-ew-resize transform -translate-x-1/2">
+                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 md:pr-10">
+                    <img src="static/images/fsc_shaker_sign.png" alt="Fresh Start Cleaning Yard Sign" class="rounded-xl shadow-lg w-full max-w-md mx-auto">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-4xl font-bold text-black mb-6 comic-font">About Fresh Start Cleaning</h2>
+                    <div class="w-20 h-1 bg-orange-500 mb-6"></div>
+                    <p class="text-lg text-gray-700 mb-6">
+                        At Fresh Start Cleaning, we believe everyone deserves to come home to a sparkling clean space. 
+                        Our mission is to provide exceptional cleaning services that give you back precious time to 
+                        enjoy what matters most in life.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-6">
+                        Founded in Augusta, GA, we're a locally owned and operated business committed to building 
+                        lasting relationships with our clients through reliability, attention to detail, and 
+                        outstanding customer service.
+                    </p>
+
+                    <div class="flex items-center">
+                        <svg class="w-8 h-8 text-blue-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span class="font-semibold">Locally Owned & Operated in Augusta, GA</span>
+                    </div>
+                </div>
+                <div id="about-penguin" class="dancing-penguin-container">
+                    <canvas id="penguin-canvas-about"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-blue-500 relative overflow-hidden">
+        <!-- Bubbles -->
+        <div id="footer-bubbles"></div>
+
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-white mb-4 comic-font">Get a Quote</h2>
+                <div class="w-20 h-1 bg-white mx-auto"></div>
+            </div>
+
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+                <div class="bg-white rounded-xl shadow-xl p-8 relative z-10">
+                    <h3 class="text-2xl font-bold text-black mb-6">Contact Information</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-3 rounded-full mr-4">
+                                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-black">Phone</h4>
+                                <p class="text-gray-600">(706) 945-6051</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-3 rounded-full mr-4">
+                                <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-black">Email</h4>
+                                <p class="text-gray-600">FreshStartCleaningAug@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-orange-100 p-3 rounded-full mr-4">
+                                <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg text-black">Website</h4>
+                                <p class="text-gray-600">KimsFreshStart.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 flex justify-center">
+                        <img src="static/images/fsc_shaker_sign.png" alt="Fresh Start Cleaning Sign" class="h-64 w-64 object-contain hover:scale-105 transition-transform duration-300">
+                    </div>
+                </div>
+                <div id="contact-penguin" class="dancing-penguin-container">
+                    <canvas id="penguin-canvas-contact"></canvas>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-xl p-8 relative z-10">
+                    <h3 class="text-2xl font-bold text-black mb-6">Book Your Cleaning</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-gray-700 font-medium mb-1">Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-gray-700 font-medium mb-1">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-gray-700 font-medium mb-1">Phone</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label for="service" class="block text-gray-700 font-medium mb-1">Service Needed</label>
+                            <select id="service" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Select a service</option>
+                                <option value="regular">Regular Cleaning</option>
+                                <option value="deep">Deep Cleaning</option>
+                                <option value="move">Move-In/Out Cleaning</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-700 font-medium mb-1">Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        <button onclick="smoothScroll('contact')" type="submit" class="water-spritz bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full w-full transition-all duration-300 transform hover:scale-105">
+                            Book Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold mb-6 text-center text-black">Service Area</h3>
+                <p class="text-center text-gray-600 mb-6">We proudly serve the greater Augusta, GA area including:</p>
+                <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-4 text-center">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-blue-600">Augusta</h4>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-green-600">Martinez</h4>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-orange-600">Evans</h4>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-blue-600">Grovetown</h4>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-black mb-4">What Our Clients Say</h2>
+                <div class="w-20 h-1 bg-orange-500 mx-auto"></div>
+            </div>
+
+            <div id="testimonials-container" class="grid gap-6 max-h-[800px] overflow-hidden transition-all duration-500">
+                <div class="facebook-post">
+                    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fjensaid3%2Fposts%2Fpfbid0CHBkYy7VhWQ8a48AZ8fPqVXsZCYiaHtL5x9cjhEZTDvB1LsxQYwnaYoaM5v489bRl&show_text=true&width=500" width="500" height="188" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+                <div class="facebook-post">
+                    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FBoricuaRealtor%2Fposts%2Fpfbid02ebccYS9J61SLNtQRvQXTkhvJtJN1TGmpeQ2HdfnxmzRyxJoYJ3iU2cvwpQWGx83Hl&show_text=true&width=500" width="500" height="252" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+                <div class="facebook-post">
+                    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fkatie.h.tracy%2Fposts%2Fpfbid0G76pQnjY9QySzVCivGfmBsm3dAXX7V1eZ5MQWRkhEwaZ85AWUtFwyUZE6foXheqEl&show_text=true&width=500" width="500" height="188" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+                <div class="facebook-post">
+                    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fcarrie.alverson%2Fposts%2Fpfbid0Mhg277ojG1vRrFN9KmVHnpqX3mziN36vSJjUsoP6CQwVRL2RjFoDfLe41p4Z7ttGl&show_text=true&width=500" width="500" height="207" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+                <div class="facebook-post">
+                    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbarclay.bishop%2Fposts%2Fpfbid02EB3rkPqWNBHYDjTZpL9nLQnsiDByN9kur4Y2w53neANzf4bDeWVWabb5wF3kCxRRl&show_text=true&width=500" width="500" height="227" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+                <div class="facebook-post">
+                    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fbrandy.ripley.5%2Fposts%2Fpfbid0ZJBwR9TtADZ47MNtAFxCUc7PAG8GknvC7u9AaXYyHK3wwkxReKr9yqG1HsXperi6l&show_text=true&width=500" width="500" height="188" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+                <div class="facebook-post">
+                    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fdiana.m.quintero.796%2Fposts%2Fpfbid02YdRDcjzdKP6ANWVgByPLWhjzYDxsyKgakDu46VL71sSSNLJFaG5WwqW4oxHe4iG1l&show_text=true&width=500" width="500" height="188" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+                <div class="facebook-post">
+                    <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0YZGbyVrTJvYrXhiqW1q3LM3GGJQEXVnXNkrJbbuG6bUgVAkqBs3YSz3Un3yHqMgrl%26id%3D1325630599&show_text=true&width=500" width="500" height="169" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <button id="show-more-btn" onclick="toggleTestimonials(event)" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300">
+                    Show More Reviews
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12 relative overflow-hidden">
+        <!-- Footer Bubbles -->
+        <div id="footer-bubbles-2"></div>
+
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <img src="static/images/fs_logo.png" alt="Fresh Start Cleaning Logo" class="h-16 mb-4">
+                    <p class="text-gray-300">Professional home cleaning services in Augusta, GA and surrounding areas.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-white transition">Home</a></li>
+                        <li><a href="#services" class="text-gray-300 hover:text-white transition">Services</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-white transition">About</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-400 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                            <span class="text-gray-300">(706) 945-6051</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-400 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                            <span class="text-gray-300">FreshStartCleaningAug@gmail.com</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-400 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span class="text-gray-300">Augusta, GA</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/share/16dcuBdrad/?mibextid=wwXIfr" target="_blank" class="bg-blue-600 hover:bg-blue-700 w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@kims.fresh.start?_t=ZP-8wPzJRjQOn0&_r=1" target="_blank" class="bg-black hover:bg-gray-800 w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.88 2.89 2.89 0 01-2.88-2.88 2.89 2.89 0 012.88-2.88c.16 0 .31.02.46.05v-3.36a6.15 6.15 0 00-.46-.02 6.25 6.25 0 00-6.25 6.25A6.25 6.25 0 0011 22a6.25 6.25 0 006.25-6.25V9.66a8.14 8.14 0 004.71 1.49v-3.36a4.85 4.85 0 01-2.37-1.1z"></path>
+                            </svg>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-gray-800 text-center">
+                <p class="text-gray-400">© 2025 Kim's Fresh Start Cleaning LLC. All rights reserved.</p>
+                <p class="text-gray-400 mt-2">Licensed & Insured</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
+
+    <style>
+        .facebook-post {
+            margin: 0 auto;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        #testimonials-container {
+            display: grid;
+            gap: 2rem;
+            transition: max-height 0.5s ease-in-out;
+            max-height: 800px;
+            overflow: hidden;
+        }
+
+        #testimonials-container.expanded {
+            max-height: 5000px !important;
+        }
+    </style>
+
+    <script>
+        // Global functions
+        function smoothScroll(targetId) {
+            const element = document.getElementById(targetId);
+            if (!element) return;
+            const offset = element.offsetTop - 100;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+        }
+
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('hidden');
+        }
+
+        function toggleTestimonials(event) {
+            if (event) event.preventDefault();
+            const container = document.getElementById('testimonials-container');
+            const button = document.getElementById('show-more-btn');
+            
+            if (container.classList.contains('expanded')) {
+                container.classList.remove('expanded');
+                button.textContent = 'Show More Reviews';
+            } else {
+                container.classList.add('expanded');
+                button.textContent = 'Show Less Reviews';
+            }
+        }
+
+        function initBeforeAfterSliders() {
+            const sliders = document.querySelectorAll('.before-after-slider');
+            
+            sliders.forEach(slider => {
+                const beforeImage = slider.querySelector('.absolute.inset-0.w-1\\/2');
+                const sliderHandle = slider.querySelector('.absolute.inset-y-0.left-1\\/2');
+                
+                let isDragging = false;
+
+                function updateSliderPosition(x) {
+                    const rect = slider.getBoundingClientRect();
+                    let position = (x - rect.left) / rect.width;
+                    position = Math.max(0, Math.min(1, position));
+
+                    // Update clip path to show more of the "after" (clean) image as handle moves right
+                    beforeImage.style.width = `${(1 - position) * 100}%`;
+                    sliderHandle.style.left = `${position * 100}%`;
+                }
+
+                // Mouse events
+                sliderHandle.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    e.preventDefault();
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (isDragging) {
+                        e.preventDefault();
+                        updateSliderPosition(e.clientX);
+                    }
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+
+                // Touch events
+                sliderHandle.addEventListener('touchstart', (e) => {
+                    isDragging = true;
+                    e.preventDefault();
+                });
+
+                document.addEventListener('touchmove', (e) => {
+                    if (isDragging) {
+                        e.preventDefault();
+                        const touch = e.touches[0];
+                        updateSliderPosition(touch.clientX);
+                    }
+                });
+
+                document.addEventListener('touchend', () => {
+                    isDragging = false;
+                });
+
+                // Set initial position
+                updateSliderPosition(slider.getBoundingClientRect().width / 2);
+            });
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initBeforeAfterSliders();
+            createBubbles();
+            createFooterBubbles();
+        });
+        function toggleTestimonials() {
+            const container = document.getElementById('testimonials-container');
+            const button = document.getElementById('show-more-btn');
+
+            if (!container || !button) return;
+
+            if (container.classList.contains('expanded')) {
+                container.classList.remove('expanded');
+                button.textContent = 'Show More Reviews';
+                container.style.maxHeight = '800px';
+            } else {
+                container.classList.add('expanded');
+                button.textContent = 'Show Less Reviews';
+                container.style.maxHeight = '5000px';
+            }
+        }
+
+        // Initialize all before/after sliders
+        function initBeforeAfterSliders() {
+            const sliders = document.querySelectorAll('.relative.h-\\[500px\\]');
+
+            sliders.forEach(slider => {
+                const beforeImage = slider.querySelector('.absolute.inset-0.w-1\\/2');
+                const sliderHandle = slider.querySelector('.absolute.inset-y-0.left-1\\/2');
+                const beforeImg = slider.querySelector('.absolute.inset-0 img:last-child');
+
+                let isDragging = false;
+
+                function updateSliderPosition(x) {
+                    const rect = slider.getBoundingClientRect();
+                    let position = (x - rect.left) / rect.width;
+                    position = Math.max(0, Math.min(1, position));
+
+                    beforeImage.style.width = `${position * 100}%`;
+                    sliderHandle.style.left = `${position * 100}%`;
+                }
+
+                // Set initial position
+                updateSliderPosition(slider.getBoundingClientRect().width / 2);
+
+                sliderHandle.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    e.preventDefault();
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (isDragging) {
+                        e.preventDefault();
+                        updateSliderPosition(e.clientX);
+                    }
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+
+                // Touch events for mobile
+                sliderHandle.addEventListener('touchstart', (e) => {
+                    isDragging = true;
+                    e.preventDefault();
+                });
+
+                document.addEventListener('touchmove', (e) => {
+                    if (isDragging) {
+                        e.preventDefault();
+                        updateSliderPosition(e.touches[0].clientX);
+                    }
+                });
+
+                document.addEventListener('touchend', () => {
+                    isDragging = false;
+                });
+
+                // Click event for instant movement
+                slider.addEventListener('click', (e) => {
+                    if (e.target !== sliderHandle) {
+                        updateSliderPosition(e.clientX);
+                    }
+                });
+            });
+        }
+
+        // Global function for testimonials toggle
+        
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initBeforeAfterSliders();
+        });
+
+        // Smooth scroll function with faster speed
+        window.smoothScroll = function(targetId) {
+            const element = document.getElementById(targetId);
+            const suds = document.createElement('div');
+            suds.className = 'suds-effect';
+            document.body.appendChild(suds);
+
+            setTimeout(() => {
+                suds.remove();
+            }, 1000);
+
+            window.scrollTo({
+                top: element.offsetTop - 100,
+                behavior: "smooth",
+                duration: 300
+            });
+        }
+
+        // Toggle menu function
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            if (window.innerWidth < 768) { // Only collapse on mobile
+                navLinks.classList.toggle('hidden');
+            }
+        }
+
+        // 3D Penguin Animation
+        function initAnimation(containerId, modelPath, scale = 0.05) {
+            if (!containerId) return;
+
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            // Create and setup canvas with explicit dimensions
+            const canvas = document.createElement('canvas');
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.display = 'block';
+            container.innerHTML = ''; // Clear any existing content
+            container.appendChild(canvas);
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+
+            // Enhanced lighting setup
+            const mainLight = new THREE.DirectionalLight(0xffffff, 2);
+            mainLight.position.set(0, 2, 2);
+            scene.add(mainLight);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
+
+            // Improved camera positioning
+            camera.position.set(0, 1.5, 3);
+            camera.lookAt(0, 1, 0);
+
+            const loader = new THREE.FBXLoader();
+            loader.load(
+                modelPath,
+                (fbx) => {
+                    fbx.scale.setScalar(scale);
+                    scene.add(fbx);
+
+                    // Only animate if the model has animations
+                    if (fbx.animations && fbx.animations.length > 0) {
+                        const mixer = new THREE.AnimationMixer(fbx);
+                        const action = mixer.clipAction(fbx.animations[0]);
+                        action.play();
+
+                        const clock = new THREE.Clock();
+                        function animate() {
+                            requestAnimationFrame(animate);
+                            mixer.update(clock.getDelta());
+                            renderer.render(scene, camera);
+                        }
+                        animate();
+                    } else {
+                        console.warn(`FBX loaded without animations: ${modelPath}`);
+                        renderer.render(scene, camera); // still render
+                    }
+                },
+                (xhr) => {
+                    console.log(`${(xhr.loaded / xhr.total * 100).toFixed(2)}% loaded: ${modelPath}`);
+                },
+                (error) => {
+                    console.error(`Error loading FBX file: ${modelPath}`, error);
+                }
+            );
+        }
+
+
+        // Toggle menu function
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            if (window.innerWidth < 768) { // Only collapse on mobile
+                navLinks.classList.add('hidden');
+            }
+        }
+
+        // Create bubbles for hero section
+        function createBubbles() {
+            const container = document.getElementById('bubbles-container');
+            const bubbleCount = 25;
+
+            function createBubble() {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+
+                // Random size between 5 and 30px
+                const size = Math.random() * 25 + 5;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+
+                // Random position
+                bubble.style.left = `${Math.random() * 100}%`;
+
+                // Random horizontal movement
+                const tx = (Math.random() - 0.5) * 200;
+                bubble.style.setProperty('--tx', `${tx}px`);
+
+                // Random animation duration and delay
+                const duration = Math.random() * 4 + 3;
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = '0s';
+
+                container.appendChild(bubble);
+
+                // Remove bubble after animation
+                bubble.addEventListener('animationend', () => {
+                    bubble.remove();
+                });
+            }
+
+            // Initial bubbles
+            for (let i = 0; i < bubbleCount; i++) {
+                createBubble();
+            }
+
+            // Continuously create new bubbles
+            setInterval(createBubble, 300);
+        }
+
+        // Create bubbles for footer
+        function createFooterBubbles() {
+            const container = document.getElementById('footer-bubbles');
+            const container2 = document.getElementById('footer-bubbles-2');
+            const bubbleCount = 20;
+
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('footer-bubble');
+
+                // Random size between 5 and 30px
+                const size = Math.random() * 25 + 5;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+
+                // Random position
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.bottom = `-${size}px`;
+
+                // Random animation duration and delay
+                const duration = Math.random() * 5 + 3;
+                const delay = Math.random() * 2;
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = `${delay}s`;
+
+                if (container) container.appendChild(bubble);
+                if (container2) container2.appendChild(bubble.cloneNode(true));
+            }
+        }
+
+        // Navbar scroll effect
+        function handleScroll() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        // Initialize penguin animations
+        window.addEventListener('load', () => {
+            // Initial positions for penguins
+            const animations = [
+                { id: 'hero-penguin', file: 'static/models/hip_hop_dancing.fbx', scale: 0.05 },
+                { id: 'services-penguin', file: 'static/models/dancing_twerk.fbx', scale: 0.05 },
+                { id: 'pricing-penguin', file: 'static/models/maraschino_step.fbx', scale: 0.05 },
+                { id: 'about-penguin', file: 'static/models/chicken_dance.fbx', scale: 0.05 },
+                { id: 'contact-penguin', file: 'static/models/backflip.fbx', scale: 0.05 },
+                { id: 'extra-penguin', file: 'static/models/run_to_flip.fbx', scale: 0.05 } // Optional
+            ];
+
+
+            animations.forEach(anim => {
+                const container = document.getElementById(anim.id);
+                if (container) {
+                    container.style.position = 'fixed';
+                    container.style.left = anim.x + 'px';
+                    container.style.top = anim.y + 'px';
+                    container.style.zIndex = '9999';
+                    container.style.pointerEvents = 'all';
+                    initAnimation(anim.id, anim.file, anim.scale);
+                }
+            });
+        });
+
+        // Make penguins draggable
+        const penguinContainers = document.querySelectorAll('.dancing-penguin-container');
+        penguinContainers.forEach(container => {
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+            let xOffset = 0;
+            let yOffset = 0;
+
+            container.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+
+                if (e.target === container) {
+                    isDragging = true;
+                }
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+
+                    xOffset = currentX;
+                    yOffset = currentY;
+
+                    setTranslate(currentX, currentY, container);
+                }
+            }
+
+            function dragEnd(e) {
+                initialX = currentX;
+                initialY = currentY;
+                isDragging = false;
+            }
+
+            function setTranslate(xPos, yPos, el) {
+                el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+            }
+        });
+
+        // Mobile menu toggle
+        function setupMobileMenu() {
+            const menuButton = document.querySelector('button.md\\:hidden');
+            if (menuButton) {
+                menuButton.addEventListener('click', () => {
+                    const navLinks = document.querySelector('.md\\:flex.space-x-8');
+                    if (navLinks) {
+                        navLinks.classList.toggle('hidden');
+                        navLinks.classList.toggle('flex');
+                        navLinks.classList.toggle('flex-col');
+                        navLinks.classList.toggle('absolute');
+                        navLinks.classList.toggle('top-16');
+                        navLinks.classList.toggle('left-0');
+                        navLinks.
+</script>
+
+    
+        <script>
+        // Global functions
+        function smoothScroll(targetId) {
+            const element = document.getElementById(targetId);
+            if (!element) return;
+            const offset = element.offsetTop - 100;
+            window.scrollTo({
+                top: offset,
+                behavior: 'smooth'
+            });
+        }
+
+        function toggleMenu() {
+            const navLinks = document.getElementById('nav-links');
+            navLinks.classList.toggle('hidden');
+        }
+
+        function toggleTestimonials(event) {
+            if (event) event.preventDefault();
+            const container = document.getElementById('testimonials-container');
+            const button = document.getElementById('show-more-btn');
+            
+            if (container.classList.contains('expanded')) {
+                container.classList.remove('expanded');
+                button.textContent = 'Show More Reviews';
+            } else {
+                container.classList.add('expanded');
+                button.textContent = 'Show Less Reviews';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll function
+            function smoothScroll(targetId) {
+                const element = document.getElementById(targetId);
+                if (!element) return;
+
+                const headerOffset = 100;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+
+            // Make smoothScroll available globally
+            window.smoothScroll = smoothScroll;
+
+            // Testimonials toggle function
+            function toggleTestimonials() {
+                const container = document.getElementById('testimonials-container');
+                const button = document.getElementById('show-more-btn');
+                
+                if (!container || !button) return;
+                
+                container.classList.toggle('expanded');
+                button.textContent = container.classList.contains('expanded') ? 'Show Less Reviews' : 'Show More Reviews';
+            }
+
+            // Make toggleTestimonials available globally
+            window.toggleTestimonials = toggleTestimonials;
+
+            // Initialize before/after sliders
+            function initBeforeAfterSliders() {
+                const sliders = document.querySelectorAll('.before-after-slider');
+                
+                sliders.forEach(slider => {
+                    const beforeImage = slider.querySelector('.before-image');
+                    const sliderHandle = slider.querySelector('.slider-handle');
+                    
+                    let isDragging = false;
+
+                    function updateSliderPosition(x) {
+                        const rect = slider.getBoundingClientRect();
+                        let position = (x - rect.left) / rect.width;
+                        position = Math.max(0, Math.min(1, position));
+
+                        beforeImage.style.width = `${position * 100}%`;
+                        sliderHandle.style.left = `${position * 100}%`;
+                    }
+
+                    // Mouse events
+                    sliderHandle.addEventListener('mousedown', (e) => {
+                        isDragging = true;
+                        e.preventDefault();
+                    });
+
+                    document.addEventListener('mousemove', (e) => {
+                        if (isDragging) {
+                            e.preventDefault();
+                            updateSliderPosition(e.clientX);
+                        }
+                    });
+
+                    document.addEventListener('mouseup', () => {
+                        isDragging = false;
+                    });
+
+                    // Touch events
+                    sliderHandle.addEventListener('touchstart', (e) => {
+                        isDragging = true;
+                        e.preventDefault();
+                    });
+
+                    document.addEventListener('touchmove', (e) => {
+                        if (isDragging) {
+                            e.preventDefault();
+                            updateSliderPosition(e.touches[0].clientX);
+                        }
+                    });
+
+                    document.addEventListener('touchend', () => {
+                        isDragging = false;
+                    });
+
+                    // Set initial position
+                    updateSliderPosition(slider.getBoundingClientRect().width / 2);
+                });
+            }
+
+            // Initialize all required functionality
+            initBeforeAfterSliders();
+            createBubbles();
+            createFooterBubbles();
+            window.addEventListener('scroll', handleScroll);
+            setupMobileMenu();
+        });
+    </script>
+</body>
+</html>
