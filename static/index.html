@@ -411,36 +411,7 @@
             <div class="absolute inset-0 bg-black bg-opacity-50"></div>
         </div>
 
-        <!-- Soap Bubbles -->
-        <div class="bubbles absolute inset-0 pointer-events-none z-10">
-            <div class="bubble-container"></div>
-        </div>
-
-        <script>
-            function createBubble() {
-                const bubble = document.createElement('div');
-                bubble.className = 'soap-bubble';
-
-                const size = Math.random() * 50 + 20;
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-
-                bubble.style.left = `${Math.random() * 100}%`;
-                bubble.style.setProperty('--float-distance', `${(Math.random() - 0.5) * 200}px`);
-                bubble.style.setProperty('--float-time', `${Math.random() * 3 + 4}s`);
-
-                const container = document.querySelector('.bubble-container');
-                container.appendChild(bubble);
-
-                bubble.addEventListener('animationend', () => {
-                    bubble.remove();
-                });
-            }
-
-            // Create bubbles periodically
-            setInterval(createBubble, 300);
-        </script>
-
+        
         <!-- Soap Bubbles -->
         <div id="bubbles-container" class="absolute inset-0 pointer-events-none"></div>
 
@@ -1302,79 +1273,7 @@
             }
         }
 
-        // Create bubbles for hero section
-        function createBubbles() {
-            const container = document.getElementById('bubbles-container');
-            const bubbleCount = 25;
-
-            function createBubble() {
-                const bubble = document.createElement('div');
-                bubble.classList.add('bubble');
-
-                // Random size between 5 and 30px
-                const size = Math.random() * 25 + 5;
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-
-                // Random position
-                bubble.style.left = `${Math.random() * 100}%`;
-
-                // Random horizontal movement
-                const tx = (Math.random() - 0.5) * 200;
-                bubble.style.setProperty('--tx', `${tx}px`);
-
-                // Random animation duration and delay
-                const duration = Math.random() * 4 + 3;
-                bubble.style.animationDuration = `${duration}s`;
-                bubble.style.animationDelay = '0s';
-
-                container.appendChild(bubble);
-
-                // Remove bubble after animation
-                bubble.addEventListener('animationend', () => {
-                    bubble.remove();
-                });
-            }
-
-            // Initial bubbles
-            for (let i = 0; i < bubbleCount; i++) {
-                createBubble();
-            }
-
-            // Continuously create new bubbles
-            setInterval(createBubble, 300);
-        }
-
-        // Create bubbles for footer
-        function createFooterBubbles() {
-            const container = document.getElementById('footer-bubbles');
-            const container2 = document.getElementById('footer-bubbles-2');
-            const bubbleCount = 20;
-
-            for (let i = 0; i < bubbleCount; i++) {
-                const bubble = document.createElement('div');
-                bubble.classList.add('footer-bubble');
-
-                // Random size between 5 and 30px
-                const size = Math.random() * 25 + 5;
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-
-                // Random position
-                bubble.style.left = `${Math.random() * 100}%`;
-                bubble.style.bottom = `-${size}px`;
-
-                // Random animation duration and delay
-                const duration = Math.random() * 5 + 3;
-                const delay = Math.random() * 2;
-                bubble.style.animationDuration = `${duration}s`;
-                bubble.style.animationDelay = `${delay}s`;
-
-                if (container) container.appendChild(bubble);
-                if (container2) container2.appendChild(bubble.cloneNode(true));
-            }
-        }
-
+        
         // Navbar scroll effect
         function handleScroll() {
             const navbar = document.querySelector('.navbar');
@@ -1605,6 +1504,79 @@
             window.addEventListener('scroll', handleScroll);
             setupMobileMenu();
         });
+        // Create bubbles for hero section
+        function createBubbles() {
+            const container = document.getElementById('bubbles-container');
+            const bubbleCount = 25;
+
+            function createBubble() {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+
+                // Random size between 5 and 30px
+                const size = Math.random() * 25 + 5;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+
+                // Random position
+                bubble.style.left = `${Math.random() * 100}%`;
+
+                // Random horizontal movement
+                const tx = (Math.random() - 0.5) * 200;
+                bubble.style.setProperty('--tx', `${tx}px`);
+
+                // Random animation duration and delay
+                const duration = Math.random() * 4 + 3;
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = '0s';
+
+                container.appendChild(bubble);
+
+                // Remove bubble after animation
+                bubble.addEventListener('animationend', () => {
+                    bubble.remove();
+                });
+            }
+
+            // Initial bubbles
+            for (let i = 0; i < bubbleCount; i++) {
+                createBubble();
+            }
+
+            // Continuously create new bubbles
+            setInterval(createBubble, 300);
+        }
+
+        // Create bubbles for footer
+        function createFooterBubbles() {
+            const container = document.getElementById('footer-bubbles');
+            const container2 = document.getElementById('footer-bubbles-2');
+            const bubbleCount = 20;
+
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('footer-bubble');
+
+                // Random size between 5 and 30px
+                const size = Math.random() * 25 + 5;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+
+                // Random position
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.bottom = `-${size}px`;
+
+                // Random animation duration and delay
+                const duration = Math.random() * 5 + 3;
+                const delay = Math.random() * 2;
+                bubble.style.animationDuration = `${duration}s`;
+                bubble.style.animationDelay = `${delay}s`;
+
+                if (container) container.appendChild(bubble);
+                if (container2) container2.appendChild(bubble.cloneNode(true));
+            }
+        }
+
     </script>
 </body>
 </html>
