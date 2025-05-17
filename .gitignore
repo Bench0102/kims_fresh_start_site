@@ -8,8 +8,6 @@ __pycache__/
 *.swp
 
 # Ignore large or test files
-*.fbx
-*.mp4
 *.avi
 *.mov
 *.blend
