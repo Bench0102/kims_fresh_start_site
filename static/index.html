@@ -37,14 +37,42 @@
         .dancing-penguin-container {
             width: 300px;
             height: 300px;
-            position: fixed;
+            position: absolute;
             cursor: move;
             touch-action: none;
             z-index: 9999;
             background: transparent;
             pointer-events: all;
-            left: 0;
-            top: 0;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Add specific positioning for different penguins */
+        #hero-penguin {
+            top: 50%;
+            right: 10%;
+            width: 400px;
+            height: 400px;
+        }
+
+        #services-penguin {
+            top: 30%;
+            left: 20%;
+            width: 250px;
+            height: 250px;
+        }
+
+        #about-penguin {
+            bottom: 20%;
+            right: 25%;
+            width: 300px;
+            height: 300px;
+        }
+
+        #contact-penguin {
+            bottom: 15%;
+            left: 15%;
+            width: 350px;
+            height: 350px;
         }
 
         .dancing-penguin-container canvas {
