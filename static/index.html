@@ -1249,8 +1249,8 @@
                 0.1,
                 1000
             );
-            camera.position.set(0, 0, 2); // Move camera in front of the penguin
-            camera.rotation.set(0, 0, 0); // Reset rotation to look straight ahead
+            camera.position.set(0, 0.5, 2); // Moved camera up by adding Y offset
+            camera.lookAt(0, 0.5, 0); // Look at the torso area
 
             const renderer = new THREE.WebGLRenderer({ 
                 canvas: canvas, 
