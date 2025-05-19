@@ -1654,15 +1654,15 @@ function initAnimation(containerId, modelPath, scale = 0.05) {
     
     const scene = new THREE.Scene();
     
-    // Camera setup - pulled back, lowered, and rotated to face front
+    // Camera setup - much further back
     const camera = new THREE.PerspectiveCamera(
-        35, // Wider FOV to see more of the penguin
+        35, // Wide FOV to see more of the penguin
         container.clientWidth / container.clientHeight,
         0.1,
         1000
     );
-    camera.position.set(0, 0.7, 5); // Moved further back (z=5), slightly elevated (y=0.7)
-    camera.lookAt(0, 0.7, 0); // Looking at penguin's chest level
+    camera.position.set(0, 1, 10); // Moved much further back (z=10), slightly elevated (y=1)
+    camera.lookAt(0, 1, 0); // Looking at penguin's chest level
     
     const renderer = new THREE.WebGLRenderer({ 
         canvas: canvas, 
@@ -1672,18 +1672,18 @@ function initAnimation(containerId, modelPath, scale = 0.05) {
     renderer.setSize(container.clientWidth, container.clientHeight);
     
     // Softer lighting setup
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4); // Reduced intensity
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
     scene.add(ambientLight);
     
-    const frontLight = new THREE.DirectionalLight(0xffffff, 0.3); // Softer main light
+    const frontLight = new THREE.DirectionalLight(0xffffff, 0.3);
     frontLight.position.set(0, 1, 2);
     scene.add(frontLight);
     
-    const fillLight = new THREE.DirectionalLight(0xffffff, 0.2); // Soft fill light
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.2);
     fillLight.position.set(-2, 0, 1);
     scene.add(fillLight);
     
-    const backLight = new THREE.DirectionalLight(0xffffff, 0.1); // Subtle rim light
+    const backLight = new THREE.DirectionalLight(0xffffff, 0.1);
     backLight.position.set(0, 1, -2);
     scene.add(backLight);
     
@@ -1691,12 +1691,7 @@ function initAnimation(containerId, modelPath, scale = 0.05) {
     const loader = new THREE.FBXLoader();
     loader.load(modelPath, (fbx) => {
         fbx.scale.set(scale, scale, scale);
-        
-        // Center the model
-        fbx.position.set(0, 0, 0);
-        
-        // Rotate model to face camera
-        fbx.rotation.y = 0; // Reset rotation to face front
+        fbx.rotation.y = Math.PI; // Rotate 180 degrees to face camera
         
         scene.add(fbx);
         
