@@ -1654,15 +1654,15 @@ function initAnimation(containerId, modelPath, scale = 0.05) {
     
     const scene = new THREE.Scene();
     
-    // Camera setup for front view of penguin's torso
+    // Camera setup - pulled back, lowered, and rotated to face front
     const camera = new THREE.PerspectiveCamera(
-        50,
+        35, // Wider FOV to see more of the penguin
         container.clientWidth / container.clientHeight,
         0.1,
         1000
     );
-    camera.position.set(0, 1, 4); // Positioned higher and further back
-    camera.lookAt(0, 1, 0); // Looking at torso height
+    camera.position.set(0, 0.7, 5); // Moved further back (z=5), slightly elevated (y=0.7)
+    camera.lookAt(0, 0.7, 0); // Looking at penguin's chest level
     
     const renderer = new THREE.WebGLRenderer({ 
         canvas: canvas, 
@@ -1671,13 +1671,21 @@ function initAnimation(containerId, modelPath, scale = 0.05) {
     });
     renderer.setSize(container.clientWidth, container.clientHeight);
     
-    // Lighting setup
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    // Softer lighting setup
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4); // Reduced intensity
     scene.add(ambientLight);
     
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(0, 1, 2);
-    scene.add(directionalLight);
+    const frontLight = new THREE.DirectionalLight(0xffffff, 0.3); // Softer main light
+    frontLight.position.set(0, 1, 2);
+    scene.add(frontLight);
+    
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.2); // Soft fill light
+    fillLight.position.set(-2, 0, 1);
+    scene.add(fillLight);
+    
+    const backLight = new THREE.DirectionalLight(0xffffff, 0.1); // Subtle rim light
+    backLight.position.set(0, 1, -2);
+    scene.add(backLight);
     
     // Load the FBX model
     const loader = new THREE.FBXLoader();
@@ -1688,7 +1696,7 @@ function initAnimation(containerId, modelPath, scale = 0.05) {
         fbx.position.set(0, 0, 0);
         
         // Rotate model to face camera
-        fbx.rotation.y = Math.PI;
+        fbx.rotation.y = 0; // Reset rotation to face front
         
         scene.add(fbx);
         
