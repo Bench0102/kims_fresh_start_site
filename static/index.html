@@ -1645,5 +1645,133 @@ function setupMobileMenu() {
         }
 
     </script>
+<script>
+    // Helper function for degree to radian conversion
+    function deg(d) {
+        return d * (Math.PI / 180);
+    }
+
+    function initAnimation(containerId, modelPath, scale = 0.05) {
+        const container = document.getElementById(containerId);
+        const canvas = container.querySelector('canvas');
+        
+        const scene = new THREE.Scene();
+        
+        // Camera setup with Blender settings
+        const camera = new THREE.PerspectiveCamera(
+            50,
+            container.clientWidth / container.clientHeight,
+            0.1,
+            1000
+        );
+        camera.position.set(0.004961, -2.3731, 0.88348);
+        camera.rotation.set(deg(80.807), 0, deg(0.88964));
+
+        const renderer = new THREE.WebGLRenderer({ 
+            canvas: canvas, 
+            alpha: true, 
+            antialias: true 
+        });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.shadowMap.enabled = true;
+
+        // Lights setup
+        const rectLight1 = new THREE.RectAreaLight(0xffffff, 10, 1, 1);
+        rectLight1.position.set(0.004961, -2.3731, 0.88348);
+        rectLight1.rotation.set(deg(80.807), 0, deg(0.88964));
+        scene.add(rectLight1);
+
+        const rectLight2 = new THREE.RectAreaLight(0xffffff, 10, 1, 1);
+        rectLight2.position.set(0.009783, -2.3767, 0.88348);
+        rectLight2.rotation.set(deg(80.159), deg(-0.84249), deg(1.097));
+        scene.add(rectLight2);
+
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        pointLight.power = 1000;
+        pointLight.position.set(4.0762, 1.0055, 5.9039);
+        scene.add(pointLight);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+
+        // Load the FBX model
+        const loader = new THREE.FBXLoader();
+        loader.load(modelPath, (fbx) => {
+            fbx.scale.set(scale, scale, scale);
+            scene.add(fbx);
+
+            // Animation mixer if the model has animations
+            const mixer = new THREE.AnimationMixer(fbx);
+            if (fbx.animations.length) {
+                const action = mixer.clipAction(fbx.animations[0]);
+                action.play();
+            }
+
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                mixer.update(0.016); // Update animations
+                renderer.render(scene, camera);
+            }
+            animate();
+        });
+
+        // Make container draggable
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+
+        container.addEventListener('mousedown', dragStart);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', dragEnd);
+
+        container.addEventListener('touchstart', dragStart);
+        document.addEventListener('touchmove', drag);
+        document.addEventListener('touchend', dragEnd);
+
+        function dragStart(e) {
+            if (e.type === 'mousedown') {
+                initialX = e.clientX - currentX;
+                initialY = e.clientY - currentY;
+            } else {
+                initialX = e.touches[0].clientX - currentX;
+                initialY = e.touches[0].clientY - currentY;
+            }
+            isDragging = true;
+        }
+
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+                if (e.type === 'mousemove') {
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                } else {
+                    currentX = e.touches[0].clientX - initialX;
+                    currentY = e.touches[0].clientY - initialY;
+                }
+                container.style.transform = `translate(${currentX}px, ${currentY}px)`;
+            }
+        }
+
+        function dragEnd() {
+            isDragging = false;
+        }
+    }
+
+    // Initialize all penguins
+    const penguins = [
+        { id: 'hero-penguin', model: '/static/models/dancing_twerk.fbx' },
+        { id: 'services-penguin', model: '/static/models/maraschino_step.fbx' },
+        { id: 'about-penguin', model: '/static/models/chicken_dance.fbx' },
+        { id: 'contact-penguin', model: '/static/models/backflip.fbx' }
+    ];
+
+    penguins.forEach(penguin => {
+        initAnimation(penguin.id, penguin.model);
+    });
+</script>
 </body>
 </html>
