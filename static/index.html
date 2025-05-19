@@ -1249,8 +1249,8 @@
                 0.1,
                 1000
             );
-            camera.position.set(0.004961, -2.3731, 0.88348);
-            camera.rotation.set(deg(80.807), 0, deg(0.88964));
+            camera.position.set(0, 0, 2); // Move camera in front of the penguin
+            camera.rotation.set(0, 0, 0); // Reset rotation to look straight ahead
 
             const renderer = new THREE.WebGLRenderer({ 
                 canvas: canvas, 
