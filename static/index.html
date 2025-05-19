@@ -1241,22 +1241,58 @@
             container.appendChild(canvas);
 
             const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            
+            // Camera setup with Blender settings
+            const camera = new THREE.PerspectiveCamera(
+                50, // matches 50mm focal length
+                container.clientWidth / container.clientHeight,
+                0.1,
+                1000
+            );
+            camera.position.set(0.004961, -2.3731, 0.88348);
+            camera.rotation.set(deg(80.807), 0, deg(0.88964));
+
+            const renderer = new THREE.WebGLRenderer({ 
+                canvas: canvas, 
+                alpha: true, 
+                antialias: true 
+            });
             renderer.setSize(container.clientWidth, container.clientHeight);
             renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.shadowMap.enabled = true;
 
-            // Enhanced lighting setup
-            const mainLight = new THREE.DirectionalLight(0xffffff, 2);
-            mainLight.position.set(0, 2, 2);
-            scene.add(mainLight);
+            // Initialize RectAreaLight
+            THREE.RectAreaLightUniformsLib.init();
 
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            // First Area Light
+            const rectLight1 = new THREE.RectAreaLight(0xffffff, 10, 1, 1);
+            rectLight1.position.set(0.004961, -2.3731, 0.88348);
+            rectLight1.rotation.set(deg(80.807), 0, deg(0.88964));
+            rectLight1.castShadow = true;
+            scene.add(rectLight1);
+
+            // Second Area Light
+            const rectLight2 = new THREE.RectAreaLight(0xffffff, 10, 1, 1);
+            rectLight2.position.set(0.009783, -2.3767, 0.88348);
+            rectLight2.rotation.set(deg(80.159), deg(-0.84249), deg(1.097));
+            rectLight2.castShadow = true;
+            scene.add(rectLight2);
+
+            // Point Light
+            const pointLight = new THREE.PointLight(0xffffff, 1);
+            pointLight.power = 1000;
+            pointLight.position.set(4.0762, 1.0055, 5.9039);
+            pointLight.castShadow = true;
+            scene.add(pointLight);
+
+            // Ambient Light for soft shadows
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
             scene.add(ambientLight);
 
-            // Improved camera positioning
-            camera.position.set(0, 1.5, 3);
-            camera.lookAt(0, 1, 0);
+            // Helper function for degree to radian conversion
+            function deg(d) {
+                return d * (Math.PI / 180);
+            }
 
             const loader = new THREE.FBXLoader();
             loader.load(
