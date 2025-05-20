@@ -34,57 +34,7 @@
             border-radius: 10px;
         }
 
-        .dancing-penguin-container {
-            width: 100px;
-            height: 100px;
-            position: absolute;
-            cursor: move;
-            touch-action: none;
-            z-index: 9999;
-            background: transparent;
-            pointer-events: all;
-            transform: translate(-50%, -50%) scale(0.4);
-        }
 
-        /* Add specific positioning for different penguins */
-        #hero-penguin {
-            top: 50%;
-            right: 10%;
-            width: 150px;
-            height: 150px;
-        }
-
-        #services-penguin {
-            top: 30%;
-            left: 20%;
-            width: 100px;
-            height: 100px;
-        }
-
-        #about-penguin {
-            bottom: 20%;
-            right: 25%;
-            width: 120px;
-            height: 120px;
-        }
-
-        #contact-penguin {
-            bottom: 15%;
-            left: 15%;
-            width: 130px;
-            height: 130px;
-        }
-
-        .dancing-penguin-container canvas {
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        #penguin-canvas {
-            width: 100%;
-            height: 100%;
-        }
 
         .comic-font {
             font-family: 'Comic Neue', cursive;
@@ -156,20 +106,7 @@
             --tx: 0px;
         }
 
-        /* Penguin Animation */
-        .penguin {
-            animation: dance 4s ease-in-out infinite;
-            transform-origin: center bottom;
-        }
 
-        @keyframes dance {
-            0%, 100% {
-                transform: rotate(-5deg);
-            }
-            50% {
-                transform: rotate(5deg);
-            }
-        }
 
         /* Water Spritz Effect */
         .water-spritz {
@@ -419,13 +356,13 @@
         </button>
     </div>
     <!-- This mobile nav section was previously misplaced and had the wrong ID -->
-    <div id="mobile-nav-links" class="hidden absolute top-full left-0 right-0 bg-white shadow-lg md:hidden flex flex-col w-full text-center space-y-4 py-4">
-        <a href="#home" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('home'); toggleMenu()">Home</a>
-        <a href="#services" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('services'); toggleMenu()">Services</a>
-        <a href="#before-after" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('before-after'); toggleMenu()">Before & After</a>
-        <a href="#about" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('about'); toggleMenu()">About</a>
-        <a href="#testimonials" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('testimonials'); toggleMenu()">Testimonials</a>
-        <a href="#contact" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('contact'); toggleMenu()">Contact</a>
+    <div id="mobile-nav-links" class="hidden fixed top-16 left-0 right-0 bg-white shadow-lg md:hidden flex flex-col w-full text-center space-y-4 py-4 z-50">
+        <a href="#home" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('home'); toggleMenu()">Home</a>
+        <a href="#services" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('services'); toggleMenu()">Services</a>
+        <a href="#before-after" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('before-after'); toggleMenu()">Before & After</a>
+        <a href="#about" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('about'); toggleMenu()">About</a>
+        <a href="#testimonials" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('testimonials'); toggleMenu()">Testimonials</a>
+        <a href="#contact" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('contact'); toggleMenu()">Contact</a>
     </div>
 </nav>
 
@@ -451,11 +388,7 @@
                     Get a Free Quote
                 </button>
             </div>
-            <div class="md:w-1/2 flex justify-center">
-                <div id="hero-penguin" class="dancing-penguin-container">
-                    <canvas id="penguin-canvas-hero"></canvas>
-                </div>
-            </div>
+            <div class="md:w-1/2 flex justify-center"></div>
         </div>
 
         <!-- Wave Divider -->
@@ -586,6 +519,30 @@
                             </svg>
                             <span>Clean ceiling fans</span>
                         </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Outside of all cabinets</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Exhaust vents</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Accessible interior windows and sills</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Oven and fridge cleaning</span>
+                        </li>
                     </ul>
                 </div>
 
@@ -675,17 +632,29 @@
                                 <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                 </svg>
-                                <span>Full fridge and oven cleaning can be added for $20 each</span>
+                                <span>Fridge and oven cleaning (prices vary)</span>
                             </li>
                         </ul>
                     </div>
                     <div class="mt-6 text-center">
                         <p class="text-lg font-bold text-green-600">Become a regular to receive additional discounts on future Deep Cleans and Move-In/Out Cleans!</p>
                     </div>
+                    <ul class="space-y-3 mt-4">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Chair rails and kick boards</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span>Exhaust vents</span>
+                        </li>
+                    </ul>
                 </div>
-                <div id="services-penguin" class="dancing-penguin-container">
-                    <canvas id="penguin-canvas-services"></canvas>
-                </div>
+
             </div>
         </div>
     </section>
@@ -777,9 +746,7 @@
                         <span class="font-semibold">Locally Owned & Operated in Augusta, GA</span>
                     </div>
                 </div>
-                <div id="about-penguin" class="dancing-penguin-container">
-                    <canvas id="penguin-canvas-about"></canvas>
-                </div>
+
             </div>
         </div>
     </section>
@@ -838,16 +805,20 @@
                         <img src="static/images/fsc_shaker_sign.png" alt="Fresh Start Cleaning Sign" class="h-64 w-64 object-contain hover:scale-105 transition-transform duration-300">
                     </div>
                 </div>
-                <div id="contact-penguin" class="dancing-penguin-container">
-                    <canvas id="penguin-canvas-contact"></canvas>
-                </div>
+
 
                 <div class="bg-white rounded-xl shadow-xl p-8 relative z-10">
                     <h3 class="text-2xl font-bold text-black mb-6">Book Your Cleaning</h3>
                     <form class="space-y-4">
-                        <div>
-                            <label for="name" class="block text-gray-700 font-medium mb-1">Name</label>
-                            <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="firstName" class="block text-gray-700 font-medium mb-1">First Name</label>
+                                <input type="text" id="firstName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-gray-700 font-medium mb-1">Last Name</label>
+                                <input type="text" id="lastName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
                         </div>
                         <div>
                             <label for="email" class="block text-gray-700 font-medium mb-1">Email</label>
@@ -943,6 +914,55 @@
         </div>
     </section>
 
+    <!-- Customer Reviews Section -->
+    <section id="reviews" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-black mb-4">Customer Reviews</h2>
+                <div class="w-20 h-1 bg-orange-500 mx-auto"></div>
+            </div>
+
+            <div class="max-w-2xl mx-auto">
+                <form id="review-form" class="bg-white rounded-xl shadow-lg p-8 mb-12">
+                    <h3 class="text-2xl font-bold text-black mb-6">Leave a Review</h3>
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="reviewFirstName" class="block text-gray-700 font-medium mb-1">First Name</label>
+                                <input type="text" id="reviewFirstName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label for="reviewLastName" class="block text-gray-700 font-medium mb-1">Last Name</label>
+                                <input type="text" id="reviewLastName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="reviewText" class="block text-gray-700 font-medium mb-1">Your Review</label>
+                            <textarea id="reviewText" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        <div>
+                            <label for="rating" class="block text-gray-700 font-medium mb-1">Rating</label>
+                            <select id="rating" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="5">5 Stars</option>
+                                <option value="4">4 Stars</option>
+                                <option value="3">3 Stars</option>
+                                <option value="2">2 Stars</option>
+                                <option value="1">1 Star</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="water-spritz bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full w-full transition-all duration-300 transform hover:scale-105">
+                            Submit Review
+                        </button>
+                    </div>
+                </form>
+
+                <div id="reviews-list" class="space-y-6">
+                    <!-- Reviews will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-black text-white py-12 relative overflow-hidden">
         <!-- Footer Bubbles -->
@@ -1012,11 +1032,7 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FBXLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/BufferGeometryUtils.js"></script>
+
 
     <script>
         // Global functions
@@ -1350,79 +1366,10 @@
             }
         }
 
-        // Initialize penguin animations
-        window.addEventListener('load', () => {
-            // Initial positions for penguins
-            const animations = [
-                { id: 'hero-penguin', file: '/static/models/hip_hop_dancing.fbx', scale: 0.05 },
-                { id: 'services-penguin', file: '/static/models/dancing_twerk.fbx', scale: 0.05 },
-                { id: 'pricing-penguin', file: '/static/models/maraschino_step.fbx', scale: 0.05 },
-                { id: 'about-penguin', file: '/static/models/chicken_dance.fbx', scale: 0.05 },
-                { id: 'contact-penguin', file: '/static/models/backflip.fbx', scale: 0.05 },
-                { id: 'extra-penguin', file: '/static/models/run_to_flip.fbx', scale: 0.05 } // Optional
-            ];
 
-
-            animations.forEach(anim => {
-                const container = document.getElementById(anim.id);
-                if (container) {
-                    container.style.position = 'fixed';
-                    container.style.left = anim.x + 'px';
-                    container.style.top = anim.y + 'px';
-                    container.style.zIndex = '9999';
-                    container.style.pointerEvents = 'all';
-                    initAnimation(anim.id, anim.file, anim.scale);
-                }
-            });
         });
 
-        // Make penguins draggable
-        const penguinContainers = document.querySelectorAll('.dancing-penguin-container');
-        penguinContainers.forEach(container => {
-            let isDragging = false;
-            let currentX;
-            let currentY;
-            let initialX;
-            let initialY;
-            let xOffset = 0;
-            let yOffset = 0;
 
-            container.addEventListener('mousedown', dragStart);
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('mouseup', dragEnd);
-
-            function dragStart(e) {
-                initialX = e.clientX - xOffset;
-                initialY = e.clientY - yOffset;
-
-                if (e.target === container) {
-                    isDragging = true;
-                }
-            }
-
-            function drag(e) {
-                if (isDragging) {
-                    e.preventDefault();
-                    currentX = e.clientX - initialX;
-                    currentY = e.clientY - initialY;
-
-                    xOffset = currentX;
-                    yOffset = currentY;
-
-                    setTranslate(currentX, currentY, container);
-                }
-            }
-
-            function dragEnd(e) {
-                initialX = currentX;
-                initialY = currentY;
-                isDragging = false;
-            }
-
-            function setTranslate(xPos, yPos, el) {
-                el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
-            }
-        });
 
         // Mobile menu toggle
 function setupMobileMenu() {
@@ -1647,119 +1594,6 @@ function setupMobileMenu() {
         }
 
     </script>
-<script>
-function initAnimation(containerId, modelPath, scale = 0.05) {
-    const container = document.getElementById(containerId);
-    const canvas = container.querySelector('canvas');
-    
-    const scene = new THREE.Scene();
-    
-    // Camera setup
-    const camera = new THREE.PerspectiveCamera(
-        25,
-        container.clientWidth / container.clientHeight,
-        0.1,
-        1000
-    );
-    camera.position.set(0, 1, 30);
-    camera.lookAt(0, 1, 0);
-    
-    // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ 
-        canvas: canvas, 
-        alpha: true, 
-        antialias: true 
-    });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    
-    // Single camera-attached light
-    const cameraLight = new THREE.PointLight(0xffffff, 0.8);
-    cameraLight.position.copy(camera.position);
-    camera.add(cameraLight);
-    scene.add(camera);
 
-    // Load the FBX model
-    const loader = new THREE.FBXLoader();
-    loader.load(modelPath, (fbx) => {
-        fbx.scale.set(scale * 2, scale * 2, scale * 2); // Doubled the scale
-        fbx.rotation.y = Math.PI; // Face front
-        
-        scene.add(fbx);
-        
-        // Animation mixer
-        const mixer = new THREE.AnimationMixer(fbx);
-        if (fbx.animations.length) {
-            const action = mixer.clipAction(fbx.animations[0]);
-            action.play();
-        }
-        
-        // Animation loop
-        const clock = new THREE.Clock();
-        function animate() {
-            requestAnimationFrame(animate);
-            const delta = clock.getDelta();
-            mixer.update(delta);
-            renderer.render(scene, camera);
-        }
-        animate();
-    });
-    
-    // Make container draggable
-    let isDragging = false;
-    let currentX = 0;
-    let currentY = 0;
-    let initialX;
-    let initialY;
-    
-    container.addEventListener('mousedown', dragStart);
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('mouseup', dragEnd);
-    
-    container.addEventListener('touchstart', dragStart);
-    document.addEventListener('touchmove', drag);
-    document.addEventListener('touchend', dragEnd);
-    
-    function dragStart(e) {
-        if (e.type === 'mousedown') {
-            initialX = e.clientX - currentX;
-            initialY = e.clientY - currentY;
-        } else {
-            initialX = e.touches[0].clientX - currentX;
-            initialY = e.touches[0].clientY - currentY;
-        }
-        isDragging = true;
-    }
-    
-    function drag(e) {
-        if (isDragging) {
-            e.preventDefault();
-            if (e.type === 'mousemove') {
-                currentX = e.clientX - initialX;
-                currentY = e.clientY - initialY;
-            } else {
-                currentX = e.touches[0].clientX - initialX;
-                currentY = e.touches[0].clientY - initialY;
-            }
-            container.style.transform = `translate(${currentX}px, ${currentY}px)`;
-        }
-    }
-    
-    function dragEnd() {
-        isDragging = false;
-    }
-}
-
-// Initialize all penguins
-const penguins = [
-    { id: 'hero-penguin', model: '/static/models/dancing_twerk.fbx' },
-    { id: 'services-penguin', model: '/static/models/maraschino_step.fbx' },
-    { id: 'about-penguin', model: '/static/models/chicken_dance.fbx' },
-    { id: 'contact-penguin', model: '/static/models/backflip.fbx' }
-];
-
-penguins.forEach(penguin => {
-    initAnimation(penguin.id, penguin.model);
-});
-</script>
 </body>
 </html>
