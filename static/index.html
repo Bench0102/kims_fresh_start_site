@@ -181,6 +181,7 @@
                            inset 0 0 50px rgba(255,255,255,0.2);
                 animation: float-up var(--float-time) ease-in forwards;
                 opacity: 0;
+                pointer-events: none;
             }
 
             @keyframes float-up {
@@ -191,13 +192,32 @@
                 10% {
                     opacity: 0.8;
                 }
-                90% {
+                50% {
                     opacity: 0.8;
+                }
+                90% {
+                    opacity: 0.4;
                 }
                 100% {
                     transform: translateY(-20vh) translateX(var(--float-distance));
                     opacity: 0;
                 }
+            }
+
+            /* Add bubble pop effect */
+            @keyframes pop {
+                0% {
+                    transform: scale(1);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: scale(1.2);
+                    opacity: 0;
+                }
+            }
+
+            .soap-bubble.pop {
+                animation: pop 0.3s ease-out forwards;
             }
     
         /* Soap Bubble Background */
@@ -355,14 +375,15 @@
             </svg>
         </button>
     </div>
-    <!-- This mobile nav section was previously misplaced and had the wrong ID -->
-    <div id="mobile-nav-links" class="hidden fixed top-16 left-0 right-0 bg-white shadow-lg md:hidden flex flex-col w-full text-center space-y-4 py-4 z-50">
-        <a href="#home" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('home'); toggleMenu()">Home</a>
-        <a href="#services" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('services'); toggleMenu()">Services</a>
-        <a href="#before-after" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('before-after'); toggleMenu()">Before & After</a>
-        <a href="#about" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('about'); toggleMenu()">About</a>
-        <a href="#testimonials" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('testimonials'); toggleMenu()">Testimonials</a>
-        <a href="#contact" class="block py-2 text-black font-semibold hover:text-orange-500 hover:bg-gray-100" onclick="event.preventDefault(); smoothScroll('contact'); toggleMenu()">Contact</a>
+    <div id="mobile-nav-links" class="hidden fixed top-16 left-0 right-0 bg-white shadow-lg md:hidden w-full text-center py-4 z-50">
+        <div class="flex flex-col space-y-2">
+            <a href="#home" class="block py-3 text-black font-semibold hover:text-orange-500 hover:bg-gray-100 transition-colors duration-200" onclick="event.preventDefault(); smoothScroll('home'); toggleMenu()">Home</a>
+            <a href="#services" class="block py-3 text-black font-semibold hover:text-orange-500 hover:bg-gray-100 transition-colors duration-200" onclick="event.preventDefault(); smoothScroll('services'); toggleMenu()">Services</a>
+            <a href="#before-after" class="block py-3 text-black font-semibold hover:text-orange-500 hover:bg-gray-100 transition-colors duration-200" onclick="event.preventDefault(); smoothScroll('before-after'); toggleMenu()">Before & After</a>
+            <a href="#about" class="block py-3 text-black font-semibold hover:text-orange-500 hover:bg-gray-100 transition-colors duration-200" onclick="event.preventDefault(); smoothScroll('about'); toggleMenu()">About</a>
+            <a href="#testimonials" class="block py-3 text-black font-semibold hover:text-orange-500 hover:bg-gray-100 transition-colors duration-200" onclick="event.preventDefault(); smoothScroll('testimonials'); toggleMenu()">Testimonials</a>
+            <a href="#contact" class="block py-3 text-black font-semibold hover:text-orange-500 hover:bg-gray-100 transition-colors duration-200" onclick="event.preventDefault(); smoothScroll('contact'); toggleMenu()">Contact</a>
+        </div>
     </div>
 </nav>
 
@@ -671,9 +692,9 @@
             <div class="grid md:grid-cols-1 gap-16">
                 <!-- First Before/After -->
                 <div class="before-after-slider relative h-[500px] overflow-hidden rounded-xl shadow-2xl">
-                    <img src="static/images/IMG_1402.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
+                    <img src="static/images/IMG_1401.jpg" alt="After Cleaning" class="w-full h-full object-cover">
                     <div class="before-image absolute top-0 left-0 h-full w-1/2 overflow-hidden">
-                        <img src="static/images/IMG_1401.jpg" alt="After Cleaning" class="w-full h-full object-cover">
+                        <img src="static/images/IMG_1402.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
                     </div>
                     <div class="slider-handle absolute top-0 bottom-0 left-1/2 w-1 bg-white cursor-ew-resize transform -translate-x-1/2">
                         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
@@ -686,9 +707,9 @@
 
                 <!-- Second Before/After -->
                 <div class="before-after-slider relative h-[500px] overflow-hidden rounded-xl shadow-2xl">
-                    <img src="static/images/IMG_1485.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
+                    <img src="static/images/IMG_1490.jpg" alt="After Cleaning" class="w-full h-full object-cover">
                     <div class="before-image absolute top-0 left-0 h-full w-1/2 overflow-hidden">
-                        <img src="static/images/IMG_1490.jpg" alt="After Cleaning" class="w-full h-full object-cover">
+                        <img src="static/images/IMG_1485.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
                     </div>
                     <div class="slider-handle absolute top-0 bottom-0 left-1/2 w-1 bg-white cursor-ew-resize transform -translate-x-1/2">
                         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
@@ -701,9 +722,9 @@
 
                 <!-- Third Before/After -->
                 <div class="before-after-slider relative h-[500px] overflow-hidden rounded-xl shadow-2xl">
-                    <img src="static/images/IMG_2511.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
+                    <img src="static/images/IMG_2513.jpg" alt="After Cleaning" class="w-full h-full object-cover">
                     <div class="before-image absolute top-0 left-0 h-full w-1/2 overflow-hidden">
-                        <img src="static/images/IMG_2513.jpg" alt="After Cleaning" class="w-full h-full object-cover">
+                        <img src="static/images/IMG_2511.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
                     </div>
                     <div class="slider-handle absolute top-0 bottom-0 left-1/2 w-1 bg-white cursor-ew-resize transform -translate-x-1/2">
                         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
@@ -1595,5 +1616,48 @@ function setupMobileMenu() {
 
     </script>
 
+    <script>
+        const MAX_BUBBLES = 15; // Maximum number of bubbles allowed at once
+        const bubbleContainer = document.getElementById('bubbles-container');
+        let activeBubbles = 0;
+
+        function createBubble() {
+            if (activeBubbles >= MAX_BUBBLES) return;
+            
+            const bubble = document.createElement('div');
+            bubble.className = 'soap-bubble';
+            
+            const size = Math.random() * 60 + 20;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.setProperty('--float-distance', `${(Math.random() - 0.5) * 200}px`);
+            bubble.style.setProperty('--float-time', `${Math.random() * 3 + 4}s`);
+            
+            bubbleContainer.appendChild(bubble);
+            activeBubbles++;
+
+            // Remove bubble after animation
+            bubble.addEventListener('animationend', () => {
+                bubble.remove();
+                activeBubbles--;
+            });
+
+            // Random pop effect
+            if (Math.random() < 0.3) {
+                setTimeout(() => {
+                    bubble.classList.add('pop');
+                    setTimeout(() => {
+                        bubble.remove();
+                        activeBubbles--;
+                    }, 300);
+                }, Math.random() * 3000);
+            }
+        }
+
+        // Create bubbles at a controlled rate
+        setInterval(createBubble, 300);
+    </script>
 </body>
 </html>
