@@ -1,10 +1,32 @@
-from flask import Flask, send_from_directory
+from flask import Flask, request, render_template, send_from_directory
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
+
+@app.route('/submit', methods=['POST'])
+def submit_form():
+    # Extract form data
+    first_name = request.form.get('firstName')
+    last_name = request.form.get('lastName')
+    email = request.form.get('email')
+    phone = request.form.get('phone')
+    service = request.form.get('service')
+    message = request.form.get('message')
+    
+    # Print form data to console
+    print("=== New Contact Form Submission ===")
+    print(f"Name: {first_name} {last_name}")
+    print(f"Email: {email}")
+    print(f"Phone: {phone}")
+    print(f"Service: {service}")
+    print(f"Message: {message}")
+    print("=" * 40)
+    
+    # Return simple response
+    return "Thanks for your message!"
 
 # Optional: Serve FBX models explicitly (if needed)
 @app.route('/static/models/<path:filename>')
