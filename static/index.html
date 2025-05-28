@@ -294,25 +294,28 @@
 
         /* Before/After Slider Styles */
         .before-after-container {
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
         .before-after-wrapper {
             position: relative;
             width: 100%;
-            height: 500px;
-            border-radius: 12px;
+            height: 400px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
             cursor: ew-resize;
         }
 
         .after-img {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
+            z-index: 1;
         }
 
         .before-img-container {
@@ -323,49 +326,50 @@
             height: 100%;
             overflow: hidden;
             z-index: 2;
+            transition: width 0.1s ease;
         }
 
         .before-img {
-            width: 800px;
+            width: 200%;
             height: 100%;
             object-fit: cover;
-            display: block;
+            object-position: left;
         }
 
         .slider-handle {
             position: absolute;
             top: 0;
+            bottom: 0;
             left: 50%;
             width: 4px;
-            height: 100%;
             background: white;
+            cursor: ew-resize;
             z-index: 3;
             transform: translateX(-50%);
-            cursor: ew-resize;
+            transition: left 0.1s ease;
         }
 
         .slider-circle {
             position: absolute;
-            top: 50%;
             left: 50%;
-            width: 50px;
-            height: 50px;
-            background: white;
+            top: 50%;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            background: white;
             transform: translate(-50%, -50%);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
             color: #666;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            user-select: none;
+            font-size: 18px;
+            font-weight: bold;
         }
 
         .slider-handle:hover .slider-circle {
-            background: #f8f8f8;
-            transform: translate(-50%, -50%) scale(1.1);
-            transition: all 0.2s ease;
+            background: #f0f0f0;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
         }
     
         /* Service Cards */
@@ -591,6 +595,7 @@
             <a href="#about" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('about'); toggleMenu()">About</a>
             <a href="#testimonials" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('testimonials'); toggleMenu()">Testimonials</a>
             <a href="#contact" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('contact'); toggleMenu()">Contact</a>
+            <a href="#reviews" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('reviews'); toggleMenu()">Leave a Review</a>
         </div>
         <button class="md:hidden focus:outline-none" onclick="toggleMobileMenu()">
             <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1453,56 +1458,75 @@
 
         // Initialize all before/after sliders
         function initBeforeAfterSliders() {
-            const containers = document.querySelectorAll('.before-after-wrapper');
+            const sliders = document.querySelectorAll('.before-after-wrapper');
             
-            containers.forEach(container => {
-                const beforeContainer = container.querySelector('.before-img-container');
-                const handle = container.querySelector('.slider-handle');
+            sliders.forEach(slider => {
+                const beforeContainer = slider.querySelector('.before-img-container');
+                const sliderHandle = slider.querySelector('.slider-handle');
+                
                 let isDragging = false;
-                
-                function updateSlider(clientX) {
-                    const rect = container.getBoundingClientRect();
-                    const x = clientX - rect.left;
-                    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-                    
-                    beforeContainer.style.width = percentage + '%';
-                    handle.style.left = percentage + '%';
+
+                function updateSliderPosition(x) {
+                    const rect = slider.getBoundingClientRect();
+                    let position = (x - rect.left) / rect.width;
+                    position = Math.max(0, Math.min(1, position));
+
+                    // Update the width of the before image container
+                    beforeContainer.style.width = `${position * 100}%`;
+                    sliderHandle.style.left = `${position * 100}%`;
                 }
-                
+
                 // Mouse events
-                container.addEventListener('mousedown', (e) => {
+                sliderHandle.addEventListener('mousedown', (e) => {
                     isDragging = true;
-                    updateSlider(e.clientX);
                     e.preventDefault();
                 });
-                
+
+                slider.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    updateSliderPosition(e.clientX);
+                    e.preventDefault();
+                });
+
                 document.addEventListener('mousemove', (e) => {
                     if (isDragging) {
-                        updateSlider(e.clientX);
+                        e.preventDefault();
+                        updateSliderPosition(e.clientX);
                     }
                 });
-                
+
                 document.addEventListener('mouseup', () => {
                     isDragging = false;
                 });
-                
-                // Touch events
-                container.addEventListener('touchstart', (e) => {
+
+                // Touch events for mobile
+                sliderHandle.addEventListener('touchstart', (e) => {
                     isDragging = true;
-                    updateSlider(e.touches[0].clientX);
                     e.preventDefault();
                 });
-                
+
+                slider.addEventListener('touchstart', (e) => {
+                    isDragging = true;
+                    const touch = e.touches[0];
+                    updateSliderPosition(touch.clientX);
+                    e.preventDefault();
+                });
+
                 document.addEventListener('touchmove', (e) => {
                     if (isDragging) {
-                        updateSlider(e.touches[0].clientX);
                         e.preventDefault();
+                        const touch = e.touches[0];
+                        updateSliderPosition(touch.clientX);
                     }
                 });
-                
+
                 document.addEventListener('touchend', () => {
                     isDragging = false;
                 });
+
+                // Set initial position to 50%
+                beforeContainer.style.width = '50%';
+                sliderHandle.style.left = '50%';
             });
         }
 
