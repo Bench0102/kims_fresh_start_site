@@ -46,6 +46,11 @@
             box-shadow: 0 2px 15px rgba(0,0,0,0.1);
         }
 
+        .navbar img {
+            background: transparent;
+            mix-blend-mode: multiply;
+        }
+
         .navbar.scrolled {
             background-color: var(--white);
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
@@ -213,6 +218,66 @@
 
         #testimonials-container.expanded {
             max-height: 5000px !important;
+        }
+
+        /* Comparison Slider Styles */
+        .comparison-slider {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .comparison-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .comparison-before,
+        .comparison-after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comparison-after {
+            clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+        }
+
+        .comparison-slider-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: white;
+            cursor: ew-resize;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .comparison-slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-size: 18px;
+            color: #333;
         }
     
         /* Service Cards */
@@ -749,46 +814,34 @@
 
             <div class="grid md:grid-cols-1 gap-16">
                 <!-- First Before/After -->
-                <div class="before-after-slider relative h-[500px] overflow-hidden rounded-xl shadow-2xl">
-                    <img src="static/images/IMG_1401.jpg" alt="After Cleaning" class="w-full h-full object-cover">
-                    <div class="before-image absolute top-0 left-0 h-full w-1/2 overflow-hidden">
-                        <img src="static/images/IMG_1402.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
-                    </div>
-                    <div class="slider-handle absolute top-0 bottom-0 left-1/2 w-1 bg-white cursor-ew-resize transform -translate-x-1/2">
-                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
-                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-                            </svg>
+                <div class="comparison-slider" data-before="static/images/IMG_1402.jpg" data-after="static/images/IMG_1401.jpg">
+                    <div class="comparison-container">
+                        <img class="comparison-before" src="static/images/IMG_1402.jpg" alt="Before Cleaning">
+                        <img class="comparison-after" src="static/images/IMG_1401.jpg" alt="After Cleaning">
+                        <div class="comparison-slider-handle">
+                            <div class="comparison-slider-button">⟷</div>
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Second Before/After -->
-                <div class="before-after-slider relative h-[500px] overflow-hidden rounded-xl shadow-2xl">
-                    <img src="static/images/IMG_1490.jpg" alt="After Cleaning" class="w-full h-full object-cover">
-                    <div class="before-image absolute top-0 left-0 h-full w-1/2 overflow-hidden">
-                        <img src="static/images/IMG_1485.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
-                    </div>
-                    <div class="slider-handle absolute top-0 bottom-0 left-1/2 w-1 bg-white cursor-ew-resize transform -translate-x-1/2">
-                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
-                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-                            </svg>
+                <div class="comparison-slider" data-before="static/images/IMG_1485.jpg" data-after="static/images/IMG_1490.jpg">
+                    <div class="comparison-container">
+                        <img class="comparison-before" src="static/images/IMG_1485.jpg" alt="Before Cleaning">
+                        <img class="comparison-after" src="static/images/IMG_1490.jpg" alt="After Cleaning">
+                        <div class="comparison-slider-handle">
+                            <div class="comparison-slider-button">⟷</div>
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Third Before/After -->
-                <div class="before-after-slider relative h-[500px] overflow-hidden rounded-xl shadow-2xl">
-                    <img src="static/images/IMG_2513.jpg" alt="After Cleaning" class="w-full h-full object-cover">
-                    <div class="before-image absolute top-0 left-0 h-full w-1/2 overflow-hidden">
-                        <img src="static/images/IMG_2511.jpg" alt="Before Cleaning" class="w-full h-full object-cover">
-                    </div>
-                    <div class="slider-handle absolute top-0 bottom-0 left-1/2 w-1 bg-white cursor-ew-resize transform -translate-x-1/2">
-                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center">
-                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-                            </svg>
+                <div class="comparison-slider" data-before="static/images/IMG_2511.jpg" data-after="static/images/IMG_2513.jpg">
+                    <div class="comparison-container">
+                        <img class="comparison-before" src="static/images/IMG_2511.jpg" alt="Before Cleaning">
+                        <img class="comparison-after" src="static/images/IMG_2513.jpg" alt="After Cleaning">
+                        <div class="comparison-slider-handle">
+                            <div class="comparison-slider-button">⟷</div>
                         </div>
                     </div>
                 </div>
@@ -988,6 +1041,49 @@
             <div class="text-center mt-8">
                 <button id="show-more-btn" onclick="toggleTestimonials(event)" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300">
                     Show More Reviews
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Website Reviews Section -->
+    <section id="website-reviews" class="py-20 bg-blue-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-black mb-4">Customer Reviews</h2>
+                <div class="w-20 h-1 bg-orange-500 mx-auto"></div>
+                <p class="mt-4 text-gray-600">What our customers say about us</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 text-xl">★★★★★</div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"Absolutely amazing service! My house has never been cleaner. The team was professional and thorough."</p>
+                    <div class="font-semibold text-gray-900">- Sarah M.</div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 text-xl">★★★★★</div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"Fresh Start Cleaning exceeded my expectations. Reliable, affordable, and excellent quality work."</p>
+                    <div class="font-semibold text-gray-900">- Mike R.</div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 text-xl">★★★★★</div>
+                    </div>
+                    <p class="text-gray-700 mb-4">"I love coming home to a spotless house. The team is trustworthy and does incredible work every time."</p>
+                    <div class="font-semibold text-gray-900">- Jennifer L.</div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button onclick="smoothScroll('reviews')" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300">
+                    Leave Your Review
                 </button>
             </div>
         </div>
@@ -1247,66 +1343,57 @@
 
         // Initialize all before/after sliders
         function initBeforeAfterSliders() {
-            const sliders = document.querySelectorAll('.relative.h-\\[500px\\]');
-
+            const sliders = document.querySelectorAll('.comparison-slider');
+            
             sliders.forEach(slider => {
-                const beforeImage = slider.querySelector('.absolute.inset-0.w-1\\/2');
-                const sliderHandle = slider.querySelector('.absolute.inset-y-0.left-1\\/2');
-                const beforeImg = slider.querySelector('.absolute.inset-0 img:last-child');
-
+                const container = slider.querySelector('.comparison-container');
+                const beforeImg = slider.querySelector('.comparison-before');
+                const handle = slider.querySelector('.comparison-slider-handle');
+                
                 let isDragging = false;
-
-                function updateSliderPosition(x) {
-                    const rect = slider.getBoundingClientRect();
-                    let position = (x - rect.left) / rect.width;
-                    position = Math.max(0, Math.min(1, position));
-
-                    beforeImage.style.width = `${position * 100}%`;
-                    sliderHandle.style.left = `${position * 100}%`;
+                
+                function updateSlider(x) {
+                    const rect = container.getBoundingClientRect();
+                    const percentage = Math.max(0, Math.min(100, ((x - rect.left) / rect.width) * 100));
+                    
+                    beforeImg.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+                    handle.style.left = `${percentage}%`;
                 }
-
-                // Set initial position
-                updateSliderPosition(slider.getBoundingClientRect().width / 2);
-
-                sliderHandle.addEventListener('mousedown', (e) => {
+                
+                // Mouse events
+                handle.addEventListener('mousedown', (e) => {
                     isDragging = true;
                     e.preventDefault();
                 });
-
+                
                 document.addEventListener('mousemove', (e) => {
                     if (isDragging) {
-                        e.preventDefault();
-                        updateSliderPosition(e.clientX);
+                        updateSlider(e.clientX);
                     }
                 });
-
+                
                 document.addEventListener('mouseup', () => {
                     isDragging = false;
                 });
-
-                // Touch events for mobile
-                sliderHandle.addEventListener('touchstart', (e) => {
+                
+                // Touch events
+                handle.addEventListener('touchstart', (e) => {
                     isDragging = true;
                     e.preventDefault();
                 });
-
+                
                 document.addEventListener('touchmove', (e) => {
                     if (isDragging) {
-                        e.preventDefault();
-                        updateSliderPosition(e.touches[0].clientX);
+                        updateSlider(e.touches[0].clientX);
                     }
                 });
-
+                
                 document.addEventListener('touchend', () => {
                     isDragging = false;
                 });
-
-                // Click event for instant movement
-                slider.addEventListener('click', (e) => {
-                    if (e.target !== sliderHandle) {
-                        updateSliderPosition(e.clientX);
-                    }
-                });
+                
+                // Set initial position
+                updateSlider(container.getBoundingClientRect().left + (container.getBoundingClientRect().width / 2));
             });
         }
 
@@ -1573,43 +1660,59 @@ function setupMobileMenu() {
 
             // Initialize before/after sliders
             function initBeforeAfterSliders() {
-            const sliders = document.querySelectorAll('.before-after-slider');
-            
-            sliders.forEach(slider => {
-                const beforeImage = slider.querySelector('.before-image');
-                const sliderHandle = slider.querySelector('.slider-handle');
+                const sliders = document.querySelectorAll('.comparison-slider');
                 
-                // Add mousemove event to the entire slider container
-                slider.addEventListener('mousemove', function(e) {
-                    const rect = slider.getBoundingClientRect();
-                    let x = e.clientX - rect.left;
-                    if (x < 0) x = 0;
-                    if (x > rect.width) x = rect.width;
-                    const percentage = (x / rect.width) * 100;
+                sliders.forEach(slider => {
+                    const container = slider.querySelector('.comparison-container');
+                    const beforeImg = slider.querySelector('.comparison-before');
+                    const handle = slider.querySelector('.comparison-slider-handle');
                     
-                    // Use clip-path instead of width
-                    beforeImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
-                    sliderHandle.style.left = `${percentage}%`;
-                });
-                
-                // Touch events for mobile
-                slider.addEventListener('touchmove', function(e) {
-                    e.preventDefault();
-                    const rect = slider.getBoundingClientRect();
-                    let x = e.touches[0].clientX - rect.left;
-                    if (x < 0) x = 0;
-                    if (x > rect.width) x = rect.width;
-                    const percentage = (x / rect.width) * 100;
+                    let isDragging = false;
                     
-                    beforeImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
-                    sliderHandle.style.left = `${percentage}%`;
+                    function updateSlider(x) {
+                        const rect = container.getBoundingClientRect();
+                        const percentage = Math.max(0, Math.min(100, ((x - rect.left) / rect.width) * 100));
+                        
+                        beforeImg.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+                        handle.style.left = `${percentage}%`;
+                    }
+                    
+                    // Mouse events
+                    handle.addEventListener('mousedown', (e) => {
+                        isDragging = true;
+                        e.preventDefault();
+                    });
+                    
+                    document.addEventListener('mousemove', (e) => {
+                        if (isDragging) {
+                            updateSlider(e.clientX);
+                        }
+                    });
+                    
+                    document.addEventListener('mouseup', () => {
+                        isDragging = false;
+                    });
+                    
+                    // Touch events
+                    handle.addEventListener('touchstart', (e) => {
+                        isDragging = true;
+                        e.preventDefault();
+                    });
+                    
+                    document.addEventListener('touchmove', (e) => {
+                        if (isDragging) {
+                            updateSlider(e.touches[0].clientX);
+                        }
+                    });
+                    
+                    document.addEventListener('touchend', () => {
+                        isDragging = false;
+                    });
+                    
+                    // Set initial position
+                    updateSlider(container.getBoundingClientRect().left + (container.getBoundingClientRect().width / 2));
                 });
-                
-                // Set initial position to 50%
-                beforeImage.style.clipPath = 'inset(0 50% 0 0)';
-                sliderHandle.style.left = '50%';
-            });
-        }
+            }
 
             // Define missing functions
             function handleScroll() {
@@ -1642,7 +1745,7 @@ function setupMobileMenu() {
 
             // Initialize all required functionality
             initBeforeAfterSliders();
-            startBubbles();
+            createBubbles();
             createFooterBubbles();
             initStarRating();
             window.addEventListener('scroll', handleScroll);
@@ -1683,56 +1786,40 @@ function setupMobileMenu() {
     </script>
 
     <script>
-        const MAX_BUBBLES = 8; // Reduce from 15 to 8
-        let activeBubbles = 0;
-        let bubbleInterval;
-
-        function createBubble() {
-            const bubbleContainer = document.getElementById('bubbles-container');
-            if (!bubbleContainer || activeBubbles >= MAX_BUBBLES) return;
+        // Replace the bubble creation functions with this:
+        function createBubbles() {
+            const container = document.getElementById('bubbles-container');
+            if (!container) return;
             
-            const bubble = document.createElement('div');
-            bubble.className = 'soap-bubble';
+            const bubbleCount = 50; // More bubbles
             
-            const size = Math.random() * 40 + 15;
-            bubble.style.width = `${size}px`;
-            bubble.style.height = `${size}px`;
-            
-            bubble.style.left = `${Math.random() * 100}%`;
-            bubble.style.setProperty('--float-distance', `${(Math.random() - 0.5) * 150}px`);
-            bubble.style.setProperty('--float-time', `${Math.random() * 2 + 3}s`);
-            
-            bubbleContainer.appendChild(bubble);
-            activeBubbles++;
-
-            // Remove bubble after animation
-            bubble.addEventListener('animationend', () => {
-                if (bubble.parentNode) {
-                    bubble.remove();
-                    activeBubbles--;
-                }
-            });
-
-            // Shorter pop effect
-            if (Math.random() < 0.2) {
-                setTimeout(() => {
-                    if (bubble.parentNode) {
-                        bubble.classList.add('pop');
-                        setTimeout(() => {
-                            if (bubble.parentNode) {
-                                bubble.remove();
-                                activeBubbles--;
-                            }
-                        }, 200);
-                    }
-                }, Math.random() * 2000);
+            // Create initial bubbles only (no continuous creation)
+            for (let i = 0; i < bubbleCount; i++) {
+                createSingleBubble(container, i * 100); // Stagger initial creation
             }
         }
 
-        // Start bubble creation with longer intervals
-        function startBubbles() {
-            if (bubbleInterval) clearInterval(bubbleInterval);
-            bubbleInterval = setInterval(createBubble, 800); // Slower creation
+        function createSingleBubble(container, delay = 0) {
+            setTimeout(() => {
+                const bubble = document.createElement('div');
+                bubble.className = 'soap-bubble';
+                
+                const size = Math.random() * 40 + 15;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}%`;
+                
+                const duration = Math.random() * 8 + 6; // Longer duration
+                bubble.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(bubble);
+                
+                // Remove and recreate when animation ends (maintains count)
+                bubble.addEventListener('animationend', () => {
+                    bubble.remove();
+                    createSingleBubble(container, Math.random() * 2000);
+                });
+            }, delay);
         }
     </script>
 
