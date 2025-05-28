@@ -429,35 +429,27 @@
             <a href="#testimonials" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('testimonials'); toggleMenu()">Testimonials</a>
             <a href="#contact" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('contact'); toggleMenu()">Contact</a>
         </div>
-        <button class="md:hidden focus:outline-none" onclick="toggleMenu()">
+        <button class="md:hidden focus:outline-none" onclick="toggleMobileMenu()">
             <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
         </button>
     </div>
-    <div id="mobile-nav-links" class="hidden fixed top-[72px] left-0 right-0 bg-white shadow-lg md:hidden w-full z-50">
+    <div id="mobile-nav-links" class="hidden absolute top-full left-0 right-0 bg-white shadow-lg md:hidden w-full z-50 border-t border-gray-200">
         <div class="flex flex-col">
-            <a href="#home" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('home'); toggleMenu()">Home</a>
-            <a href="#services" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('services'); toggleMenu()">Services</a>
-            <a href="#before-after" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('before-after'); toggleMenu()">Before & After</a>
-            <a href="#about" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('about'); toggleMenu()">About</a>
-            <a href="#testimonials" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('testimonials'); toggleMenu()">Testimonials</a>
-            <a href="#contact" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('contact'); toggleMenu()">Contact</a>
+            <a href="#home" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('home'); toggleMobileMenu()">Home</a>
+            <a href="#services" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('services'); toggleMobileMenu()">Services</a>
+            <a href="#before-after" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('before-after'); toggleMobileMenu()">Before & After</a>
+            <a href="#about" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('about'); toggleMobileMenu()">About</a>
+            <a href="#testimonials" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('testimonials'); toggleMobileMenu()">Testimonials</a>
+            <a href="#contact" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('contact'); toggleMobileMenu()">Contact</a>
+            <a href="#reviews" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50" onclick="event.preventDefault(); smoothScroll('reviews'); toggleMobileMenu()">Leave a Review</a>
         </div>
     </div>
 </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-        <!-- Video Background -->
-        <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
-            <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
-                <source src="static/images/IMG_3109.mp4" type="video/mp4">
-            </video>
-            <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-        </div>
-
-
+    <section id="home" class="hero min-h-screen flex items-center justify-center relative overflow-hidden pt-20" style="background: linear-gradient(135deg, #75c6ed 0%, #87ceeb 100%);">
         <!-- Soap Bubbles -->
         <div id="bubbles-container" class="absolute inset-0 pointer-events-none"></div>
 
@@ -999,49 +991,56 @@
     </section>
 
     <!-- Customer Reviews Section -->
-    <section id="reviews" class="py-20 bg-gray-50">
+    <section id="reviews" class="py-20 bg-blue-500 relative overflow-hidden">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-black mb-4">Customer Reviews</h2>
-                <div class="w-20 h-1 bg-orange-500 mx-auto"></div>
+                <h2 class="text-4xl font-bold text-white mb-4 comic-font">Leave Us a Review</h2>
+                <div class="w-20 h-1 bg-white mx-auto"></div>
+                <p class="mt-4 text-white">Share your experience with Fresh Start Cleaning</p>
             </div>
 
-            <div class="max-w-2xl mx-auto">
-                <form id="review-form" class="bg-white rounded-xl shadow-lg p-8 mb-12">
-                    <h3 class="text-2xl font-bold text-black mb-6">Leave a Review</h3>
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-2 gap-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-xl shadow-xl p-8">
+                    <form id="review-form" class="space-y-6" onsubmit="return handleReviewSubmit(event)">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="reviewFirstName" class="block text-gray-700 font-medium mb-1">First Name</label>
-                                <input type="text" id="reviewFirstName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <label for="reviewName" class="block text-gray-700 font-medium mb-1">Your Name</label>
+                                <input type="text" id="reviewName" name="reviewName" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                             <div>
-                                <label for="reviewLastName" class="block text-gray-700 font-medium mb-1">Last Name</label>
-                                <input type="text" id="reviewLastName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <label for="reviewEmail" class="block text-gray-700 font-medium mb-1">Email (optional)</label>
+                                <input type="email" id="reviewEmail" name="reviewEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                         </div>
+                        
+                        <div>
+                            <label class="block text-gray-700 font-medium mb-2">Rating</label>
+                            <div class="flex space-x-2 star-rating" id="star-rating">
+                                <span class="star cursor-pointer text-3xl text-gray-300 hover:text-yellow-400" data-rating="1">★</span>
+                                <span class="star cursor-pointer text-3xl text-gray-300 hover:text-yellow-400" data-rating="2">★</span>
+                                <span class="star cursor-pointer text-3xl text-gray-300 hover:text-yellow-400" data-rating="3">★</span>
+                                <span class="star cursor-pointer text-3xl text-gray-300 hover:text-yellow-400" data-rating="4">★</span>
+                                <span class="star cursor-pointer text-3xl text-gray-300 hover:text-yellow-400" data-rating="5">★</span>
+                            </div>
+                            <input type="hidden" id="rating-input" name="rating" value="0">
+                        </div>
+                        
                         <div>
                             <label for="reviewText" class="block text-gray-700 font-medium mb-1">Your Review</label>
-                            <textarea id="reviewText" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                            <textarea id="reviewText" name="reviewText" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Tell us about your experience with Fresh Start Cleaning..."></textarea>
                         </div>
-                        <div>
-                            <label for="rating" class="block text-gray-700 font-medium mb-1">Rating</label>
-                            <select id="rating" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="5">5 Stars</option>
-                                <option value="4">4 Stars</option>
-                                <option value="3">3 Stars</option>
-                                <option value="2">2 Stars</option>
-                                <option value="1">1 Star</option>
-                            </select>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105">
+                                Submit Review
+                            </button>
                         </div>
-                        <button type="submit" class="water-spritz bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full w-full transition-all duration-300 transform hover:scale-105">
-                            Submit Review
-                        </button>
+                    </form>
+                    
+                    <div id="review-success" class="hidden mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                        <p class="font-semibold">Thank you for your review!</p>
+                        <p>Your feedback helps us continue to provide excellent service.</p>
                     </div>
-                </form>
-
-                <div id="reviews-list" class="space-y-6">
-                    <!-- Reviews will be dynamically added here -->
                 </div>
             </div>
         </div>
@@ -1130,6 +1129,21 @@
         function toggleMenu() {
             const navLinks = document.getElementById('nav-links');
             navLinks.classList.toggle('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const mobileNavLinks = document.getElementById('mobile-nav-links');
+            const menuButton = document.querySelector('[onclick="toggleMobileMenu()"]');
+            
+            if (mobileNavLinks.classList.contains('hidden')) {
+                mobileNavLinks.classList.remove('hidden');
+                mobileNavLinks.classList.add('flex', 'flex-col', 'absolute', 'top-16', 'left-0', 'w-full', 'bg-white', 'shadow-lg', 'z-50');
+                if (menuButton) menuButton.innerHTML = '✕';
+            } else {
+                mobileNavLinks.classList.add('hidden');
+                mobileNavLinks.classList.remove('flex', 'flex-col', 'absolute', 'top-16', 'left-0', 'w-full', 'bg-white', 'shadow-lg', 'z-50');
+                if (menuButton) menuButton.innerHTML = '☰';
+            }
         }
 
         function toggleTestimonials(event) {
@@ -1492,6 +1506,21 @@ function setupMobileMenu() {
             navLinks.classList.toggle('hidden');
         }
 
+        function toggleMobileMenu() {
+            const mobileNavLinks = document.getElementById('mobile-nav-links');
+            const menuButton = document.querySelector('[onclick="toggleMobileMenu()"]');
+            
+            if (mobileNavLinks.classList.contains('hidden')) {
+                mobileNavLinks.classList.remove('hidden');
+                mobileNavLinks.classList.add('flex', 'flex-col', 'absolute', 'top-16', 'left-0', 'w-full', 'bg-white', 'shadow-lg', 'z-50');
+                if (menuButton) menuButton.innerHTML = '✕';
+            } else {
+                mobileNavLinks.classList.add('hidden');
+                mobileNavLinks.classList.remove('flex', 'flex-col', 'absolute', 'top-16', 'left-0', 'w-full', 'bg-white', 'shadow-lg', 'z-50');
+                if (menuButton) menuButton.innerHTML = '☰';
+            }
+        }
+
         function toggleTestimonials(event) {
             if (event) event.preventDefault();
             const container = document.getElementById('testimonials-container');
@@ -1601,6 +1630,7 @@ function setupMobileMenu() {
             initBeforeAfterSliders();
             createBubbles();
             createFooterBubbles();
+            initStarRating();
             window.addEventListener('scroll', handleScroll);
             setupMobileMenu();
         });
@@ -1721,6 +1751,75 @@ function setupMobileMenu() {
 
         // Create bubbles at a controlled rate
         setInterval(createBubble, 300);
+    </script>
+
+    <script>
+        // Star rating functionality
+        function initStarRating() {
+            const stars = document.querySelectorAll('.star-rating .star');
+            const ratingInput = document.getElementById('rating-input');
+            
+            stars.forEach((star, index) => {
+                star.addEventListener('click', () => {
+                    const rating = index + 1;
+                    ratingInput.value = rating;
+                    updateStarDisplay(rating);
+                });
+                
+                star.addEventListener('mouseover', () => {
+                    updateStarDisplay(index + 1);
+                });
+            });
+            
+            document.querySelector('.star-rating').addEventListener('mouseleave', () => {
+                updateStarDisplay(ratingInput.value || 0);
+            });
+        }
+
+        function updateStarDisplay(rating) {
+            const stars = document.querySelectorAll('.star-rating .star');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initStarRating();
+        });
+
+        // Handle review form submission
+        function handleReviewSubmit(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const reviewData = {
+                name: formData.get('reviewName'),
+                rating: formData.get('rating'),
+                review: formData.get('reviewText')
+            };
+            
+            fetch('/submit-review', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reviewData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Thank you for your review!');
+                event.target.reset();
+                updateStarDisplay(0);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your review. Please try again.');
+            });
+        }
     </script>
 </body>
 </html>

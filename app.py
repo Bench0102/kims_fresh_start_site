@@ -38,5 +38,36 @@ def serve_model(filename):
 def serve_images(filename):
     return send_from_directory('static/images', filename)
 
+# Add review submission endpoint
+@app.route('/submit-review', methods=['POST'])
+def submit_review():
+    try:
+        data = request.get_json()
+        name = data.get('name')
+        rating = data.get('rating')
+        review = data.get('review')
+        
+        print(f"New Review - Name: {name}, Rating: {rating}, Review: {review}")
+        
+        return jsonify({'status': 'success', 'message': 'Review submitted successfully'})
+    except Exception as e:
+        print(f"Error submitting review: {e}")
+        return jsonify({'status': 'error', 'message': 'Failed to submit review'}), 500
+    # Extract review data
+    name = request.form.get('reviewName')
+    email = request.form.get('reviewEmail')
+    rating = request.form.get('rating')
+    review_text = request.form.get('reviewText')
+    
+    # Print review data to console
+    print("=== New Review Submission ===")
+    print(f"Name: {name}")
+    print(f"Email: {email}")
+    print(f"Rating: {rating}/5 stars")
+    print(f"Review: {review_text}")
+    print("=" * 40)
+    
+    return "Thank you for your review!"
+
 if __name__ == '__main__':
     app.run(debug=True)
