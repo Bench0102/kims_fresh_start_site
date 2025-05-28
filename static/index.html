@@ -306,6 +306,10 @@
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
             cursor: ew-resize;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         .after-img {
@@ -347,6 +351,8 @@
             z-index: 3;
             transform: translateX(-50%);
             transition: left 0.1s ease;
+            pointer-events: auto;
+            user-select: none;
         }
 
         .slider-circle {
@@ -365,6 +371,8 @@
             color: #666;
             font-size: 18px;
             font-weight: bold;
+            pointer-events: auto;
+            user-select: none;
         }
 
         .slider-handle:hover .slider-circle {
@@ -1459,10 +1467,18 @@
         // Initialize all before/after sliders
         function initBeforeAfterSliders() {
             const sliders = document.querySelectorAll('.before-after-wrapper');
+            console.log('Found sliders:', sliders.length); // Debug log
             
-            sliders.forEach(slider => {
+            sliders.forEach((slider, index) => {
                 const beforeContainer = slider.querySelector('.before-img-container');
                 const sliderHandle = slider.querySelector('.slider-handle');
+                
+                console.log(`Slider ${index}:`, { beforeContainer, sliderHandle }); // Debug log
+                
+                if (!beforeContainer || !sliderHandle) {
+                    console.error(`Missing elements for slider ${index}`);
+                    return;
+                }
                 
                 let isDragging = false;
 
@@ -1474,59 +1490,57 @@
                     // Update the width of the before image container
                     beforeContainer.style.width = `${position * 100}%`;
                     sliderHandle.style.left = `${position * 100}%`;
+                    
+                    console.log('Position updated:', position); // Debug log
                 }
 
-                // Mouse events
-                sliderHandle.addEventListener('mousedown', (e) => {
+                // Mouse events - simplified approach
+                function startDrag(e) {
                     isDragging = true;
                     e.preventDefault();
-                });
-
-                slider.addEventListener('mousedown', (e) => {
-                    isDragging = true;
-                    updateSliderPosition(e.clientX);
+                    e.stopPropagation();
+                    
+                    // Immediately update position
+                    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                    updateSliderPosition(clientX);
+                }
+                
+                function onDrag(e) {
+                    if (!isDragging) return;
                     e.preventDefault();
-                });
-
-                document.addEventListener('mousemove', (e) => {
-                    if (isDragging) {
-                        e.preventDefault();
-                        updateSliderPosition(e.clientX);
-                    }
-                });
-
-                document.addEventListener('mouseup', () => {
+                    e.stopPropagation();
+                    
+                    const clientX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+                    updateSliderPosition(clientX);
+                }
+                
+                function stopDrag() {
                     isDragging = false;
-                });
+                }
 
-                // Touch events for mobile
-                sliderHandle.addEventListener('touchstart', (e) => {
-                    isDragging = true;
-                    e.preventDefault();
-                });
-
-                slider.addEventListener('touchstart', (e) => {
-                    isDragging = true;
-                    const touch = e.touches[0];
-                    updateSliderPosition(touch.clientX);
-                    e.preventDefault();
-                });
-
-                document.addEventListener('touchmove', (e) => {
-                    if (isDragging) {
-                        e.preventDefault();
-                        const touch = e.touches[0];
-                        updateSliderPosition(touch.clientX);
-                    }
-                });
-
-                document.addEventListener('touchend', () => {
-                    isDragging = false;
-                });
+                // Add event listeners to both handle and container
+                sliderHandle.addEventListener('mousedown', startDrag);
+                slider.addEventListener('mousedown', startDrag);
+                
+                // Global mouse events
+                document.addEventListener('mousemove', onDrag);
+                document.addEventListener('mouseup', stopDrag);
+                
+                // Touch events
+                sliderHandle.addEventListener('touchstart', startDrag, { passive: false });
+                slider.addEventListener('touchstart', startDrag, { passive: false });
+                
+                document.addEventListener('touchmove', onDrag, { passive: false });
+                document.addEventListener('touchend', stopDrag);
 
                 // Set initial position to 50%
                 beforeContainer.style.width = '50%';
                 sliderHandle.style.left = '50%';
+                
+                // Make sure the slider handle is visible and clickable
+                sliderHandle.style.pointerEvents = 'auto';
+                sliderHandle.style.userSelect = 'none';
+                slider.style.userSelect = 'none';
             });
         }
 
