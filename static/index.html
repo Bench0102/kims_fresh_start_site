@@ -291,6 +291,82 @@
         .comparison-slider-handle:hover .comparison-slider-button {
             background: #f0f0f0;
         }
+
+        /* Before/After Slider Styles */
+        .before-after-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .before-after-wrapper {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            cursor: ew-resize;
+        }
+
+        .after-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .before-img-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+        }
+
+        .before-img {
+            width: 800px;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: white;
+            z-index: 3;
+            transform: translateX(-50%);
+            cursor: ew-resize;
+        }
+
+        .slider-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #666;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            user-select: none;
+        }
+
+        .slider-handle:hover .slider-circle {
+            background: #f8f8f8;
+            transform: translate(-50%, -50%) scale(1.1);
+            transition: all 0.2s ease;
+        }
     
         /* Service Cards */
         .service-card {
@@ -831,37 +907,52 @@
                 <p class="mt-4 text-gray-600">See the difference our cleaning makes</p>
             </div>
 
-            <div class="grid md:grid-cols-1 gap-16">
+            <div class="space-y-16">
                 <!-- First Before/After -->
-                <div class="comparison-slider" data-before="static/images/IMG_1402.jpg" data-after="static/images/IMG_1401.jpg">
-                    <div class="comparison-container">
-                        <img class="comparison-before" src="static/images/IMG_1402.jpg" alt="Before Cleaning">
-                        <img class="comparison-after" src="static/images/IMG_1401.jpg" alt="After Cleaning">
-                        <div class="comparison-slider-handle">
-                            <div class="comparison-slider-button">⟷</div>
+                <div class="before-after-container">
+                    <div class="before-after-wrapper">
+                        <img class="after-img" src="static/images/IMG_1401.jpg" alt="After Cleaning">
+                        <div class="before-img-container">
+                            <img class="before-img" src="static/images/IMG_1402.jpg" alt="Before Cleaning">
                         </div>
+                        <div class="slider-handle">
+                            <div class="slider-circle">↔</div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="text-gray-600">Kitchen Deep Clean</p>
                     </div>
                 </div>
                 
                 <!-- Second Before/After -->
-                <div class="comparison-slider" data-before="static/images/IMG_1485.jpg" data-after="static/images/IMG_1490.jpg">
-                    <div class="comparison-container">
-                        <img class="comparison-before" src="static/images/IMG_1485.jpg" alt="Before Cleaning">
-                        <img class="comparison-after" src="static/images/IMG_1490.jpg" alt="After Cleaning">
-                        <div class="comparison-slider-handle">
-                            <div class="comparison-slider-button">⟷</div>
+                <div class="before-after-container">
+                    <div class="before-after-wrapper">
+                        <img class="after-img" src="static/images/IMG_1490.jpg" alt="After Cleaning">
+                        <div class="before-img-container">
+                            <img class="before-img" src="static/images/IMG_1485.jpg" alt="Before Cleaning">
                         </div>
+                        <div class="slider-handle">
+                            <div class="slider-circle">↔</div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="text-gray-600">Bathroom Transformation</p>
                     </div>
                 </div>
                 
                 <!-- Third Before/After -->
-                <div class="comparison-slider" data-before="static/images/IMG_2511.jpg" data-after="static/images/IMG_2513.jpg">
-                    <div class="comparison-container">
-                        <img class="comparison-before" src="static/images/IMG_2511.jpg" alt="Before Cleaning">
-                        <img class="comparison-after" src="static/images/IMG_2513.jpg" alt="After Cleaning">
-                        <div class="comparison-slider-handle">
-                            <div class="comparison-slider-button">⟷</div>
+                <div class="before-after-container">
+                    <div class="before-after-wrapper">
+                        <img class="after-img" src="static/images/IMG_2513.jpg" alt="After Cleaning">
+                        <div class="before-img-container">
+                            <img class="before-img" src="static/images/IMG_2511.jpg" alt="Before Cleaning">
                         </div>
+                        <div class="slider-handle">
+                            <div class="slider-circle">↔</div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="text-gray-600">Living Room Refresh</p>
                     </div>
                 </div>
             </div>
@@ -902,124 +993,124 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-blue-500 relative overflow-hidden">
-        <!-- Bubbles -->
-        <div id="footer-bubbles"></div>
+<!-- Contact Section -->
+<section id="contact" class="py-20 bg-blue-500 relative overflow-hidden">
+    <!-- Bubbles -->
+    <div id="footer-bubbles"></div>
 
-        <div class="container mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-white mb-4 comic-font">Get a Quote</h2>
-                <div class="w-20 h-1 bg-white mx-auto"></div>
-            </div>
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-white mb-4 comic-font">Get a Quote</h2>
+            <div class="w-20 h-1 bg-white mx-auto"></div>
+        </div>
 
-            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-                <div class="bg-white rounded-xl shadow-xl p-8 relative z-10">
-                    <h3 class="text-2xl font-bold text-black mb-6">Contact Information</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="bg-blue-100 p-3 rounded-full mr-4">
-                                <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg text-black">Phone</h4>
-                                <p class="text-gray-600">(706) 945-6051</p>
-                            </div>
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+            <div class="bg-white rounded-xl shadow-xl p-8 relative z-10">
+                <h3 class="text-2xl font-bold text-black mb-6">Contact Information</h3>
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
                         </div>
-                        <div class="flex items-start">
-                            <div class="bg-green-100 p-3 rounded-full mr-4">
-                                <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg text-black">Email</h4>
-                                <p class="text-gray-600">FreshStartCleaningAug@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="bg-orange-100 p-3 rounded-full mr-4">
-                                <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg text-black">Website</h4>
-                                <p class="text-gray-600">KimsFreshStart.com</p>
-                            </div>
+                        <div>
+                            <h4 class="font-bold text-lg text-black">Phone</h4>
+                            <p class="text-gray-600">(706) 945-6051</p>
                         </div>
                     </div>
-
-                    <div class="mt-8 flex justify-center">
-                        <img src="static/images/fsc_shaker_sign.png" alt="Fresh Start Cleaning Sign" class="h-64 w-64 object-contain hover:scale-105 transition-transform duration-300">
+                    <div class="flex items-start">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg text-black">Email</h4>
+                            <p class="text-gray-600">FreshStartCleaningAug@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-orange-100 p-3 rounded-full mr-4">
+                            <svg class="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg text-black">Website</h4>
+                            <p class="text-gray-600">KimsFreshStart.com</p>
+                        </div>
                     </div>
                 </div>
 
-
-                <div class="bg-white rounded-xl shadow-xl p-8 relative z-10">
-                    <h3 class="text-2xl font-bold text-black mb-6">Book Your Cleaning</h3>
-                    <form class="space-y-4" action="/submit" method="POST" onsubmit="return handleFormSubmit(event)">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label for="firstName" class="block text-gray-700 font-medium mb-1">First Name</label>
-                                <input type="text" id="firstName" name="firstName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
-                            <div>
-                                <label for="lastName" class="block text-gray-700 font-medium mb-1">Last Name</label>
-                                <input type="text" id="lastName" name="lastName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
-                        </div>
-                        <div>
-                            <label for="email" class="block text-gray-700 font-medium mb-1">Email</label>
-                            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        <div>
-                            <label for="phone" class="block text-gray-700 font-medium mb-1">Phone</label>
-                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        <div>
-                            <label for="service" class="block text-gray-700 font-medium mb-1">Service Needed</label>
-                            <select id="service" name="service" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <option value="">Select a service</option>
-                                <option value="regular">Regular Cleaning</option>
-                                <option value="deep">Deep Cleaning</option>
-                                <option value="move">Move-In/Out Cleaning</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="message" class="block text-gray-700 font-medium mb-1">Message</label>
-                            <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                        </div>
-                        <button type="submit" class="water-spritz bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full w-full transition-all duration-300 transform hover:scale-105">
-                            Book Now
-                        </button>
-                    </form>
+                <div class="mt-8 flex justify-center">
+                    <img src="static/images/fsc_shaker_sign.png" alt="Fresh Start Cleaning Sign" class="h-64 w-64 object-contain hover:scale-105 transition-transform duration-300">
                 </div>
             </div>
 
-            <div class="mt-12 bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto">
-                <h3 class="text-2xl font-bold mb-6 text-center text-black">Service Area</h3>
-                <p class="text-center text-gray-600 mb-6">We proudly serve the greater Augusta, GA area including:</p>
-                <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-4 text-center">
-                        <div class="bg-blue-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-blue-600">Augusta</h4>
+            <div class="bg-white rounded-xl shadow-xl p-8 relative z-10">
+                <h3 class="text-2xl font-bold text-black mb-6">Book Your Cleaning</h3>
+                <form class="space-y-4" action="https://leadneedle.com/submit-kim" method="POST">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="firstName" class="block text-gray-700 font-medium mb-1">First Name</label>
+                            <input required type="text" id="firstName" name="firstName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </div>
-                        <div class="bg-green-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-green-600">Martinez</h4>
-                        </div>
-                        <div class="bg-orange-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-orange-600">Evans</h4>
-                        </div>
-                        <div class="bg-blue-50 p-4 rounded-lg">
-                            <h4 class="font-bold text-blue-600">Grovetown</h4>
+                        <div>
+                            <label for="lastName" class="block text-gray-700 font-medium mb-1">Last Name</label>
+                            <input required type="text" id="lastName" name="lastName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </div>
                     </div>
+                    <div>
+                        <label for="email" class="block text-gray-700 font-medium mb-1">Email</label>
+                        <input required type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-gray-700 font-medium mb-1">Phone</label>
+                        <input required type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div>
+                        <label for="service" class="block text-gray-700 font-medium mb-1">Service Needed</label>
+                        <select required id="service" name="service" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Select a service</option>
+                            <option value="regular">Regular Cleaning</option>
+                            <option value="deep">Deep Cleaning</option>
+                            <option value="move">Move-In/Out Cleaning</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-gray-700 font-medium mb-1">Message</label>
+                        <textarea required id="message" name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+                    <button type="submit" class="water-spritz bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full w-full transition-all duration-300 transform hover:scale-105">
+                        Book Now
+                    </button>
+                </form>
             </div>
         </div>
-    </section>
+
+        <div class="mt-12 bg-white rounded-xl shadow-lg p-8 max-w-4xl mx-auto">
+            <h3 class="text-2xl font-bold mb-6 text-center text-black">Service Area</h3>
+            <p class="text-center text-gray-600 mb-6">We proudly serve the greater Augusta, GA area including:</p>
+            <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-4 text-center">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-blue-600">Augusta</h4>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-green-600">Martinez</h4>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-orange-600">Evans</h4>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-blue-600">Grovetown</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
     <!-- Testimonials Section -->
     <section id="testimonials" class="py-20 bg-gray-50">
@@ -1362,26 +1453,26 @@
 
         // Initialize all before/after sliders
         function initBeforeAfterSliders() {
-            const sliders = document.querySelectorAll('.comparison-slider');
+            const containers = document.querySelectorAll('.before-after-wrapper');
             
-            sliders.forEach(slider => {
-                const container = slider.querySelector('.comparison-container');
-                const beforeImg = slider.querySelector('.comparison-before');
-                const handle = slider.querySelector('.comparison-slider-handle');
-                
+            containers.forEach(container => {
+                const beforeContainer = container.querySelector('.before-img-container');
+                const handle = container.querySelector('.slider-handle');
                 let isDragging = false;
                 
-                function updateSlider(x) {
+                function updateSlider(clientX) {
                     const rect = container.getBoundingClientRect();
-                    const percentage = Math.max(0, Math.min(100, ((x - rect.left) / rect.width) * 100));
+                    const x = clientX - rect.left;
+                    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
                     
-                    beforeImg.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
-                    handle.style.left = `${percentage}%`;
+                    beforeContainer.style.width = percentage + '%';
+                    handle.style.left = percentage + '%';
                 }
                 
                 // Mouse events
-                handle.addEventListener('mousedown', (e) => {
+                container.addEventListener('mousedown', (e) => {
                     isDragging = true;
+                    updateSlider(e.clientX);
                     e.preventDefault();
                 });
                 
@@ -1396,23 +1487,22 @@
                 });
                 
                 // Touch events
-                handle.addEventListener('touchstart', (e) => {
+                container.addEventListener('touchstart', (e) => {
                     isDragging = true;
+                    updateSlider(e.touches[0].clientX);
                     e.preventDefault();
                 });
                 
                 document.addEventListener('touchmove', (e) => {
                     if (isDragging) {
                         updateSlider(e.touches[0].clientX);
+                        e.preventDefault();
                     }
                 });
                 
                 document.addEventListener('touchend', () => {
                     isDragging = false;
                 });
-                
-                // Set initial position
-                updateSlider(container.getBoundingClientRect().left + (container.getBoundingClientRect().width / 2));
             });
         }
 
