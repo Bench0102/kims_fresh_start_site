@@ -248,25 +248,33 @@
         }
 
         .comparison-after {
-            clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+            z-index: 1;
+        }
+
+        .comparison-before {
+            z-index: 2;
+            clip-path: inset(0 50% 0 0);
+            transition: clip-path 0.1s ease;
         }
 
         .comparison-slider-handle {
             position: absolute;
             top: 0;
+            bottom: 0;
             left: 50%;
             width: 4px;
-            height: 100%;
             background: white;
             cursor: ew-resize;
+            z-index: 3;
             transform: translateX(-50%);
-            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
         .comparison-slider-button {
             position: absolute;
             top: 50%;
             left: 50%;
+            transform: translate(-50%, -50%);
             width: 40px;
             height: 40px;
             background: white;
@@ -274,10 +282,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             font-size: 18px;
-            color: #333;
+            color: #666;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
     
         /* Service Cards */
@@ -299,35 +306,23 @@
 
             .soap-bubble {
                 position: absolute;
+                background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.4));
                 border-radius: 50%;
-                background: radial-gradient(circle at 33% 33%, 
-                    rgba(255,255,255,0.3),
-                    rgba(255,255,255,0.2) 40%,
-                    rgba(255,255,255,0.1) 60%,
-                    rgba(255,255,255,0) 70%);
-                box-shadow: inset 0 0 20px rgba(255,255,255,0.5),
-                           inset 0 0 50px rgba(255,255,255,0.2);
-                animation: float-up var(--float-time) ease-in forwards;
-                opacity: 0;
                 pointer-events: none;
+                animation: float 6s ease-in-out infinite;
+                --tx: 0px;
             }
 
-            @keyframes float-up {
+            @keyframes float {
                 0% {
-                    transform: translateY(100vh) translateX(0);
+                    transform: translate(0, 100vh) rotate(0deg);
                     opacity: 0;
-                }
-                10% {
-                    opacity: 0.8;
                 }
                 50% {
                     opacity: 0.8;
                 }
-                90% {
-                    opacity: 0.4;
-                }
                 100% {
-                    transform: translateY(-20vh) translateX(var(--float-distance));
+                    transform: translate(var(--tx), -100vh) rotate(360deg);
                     opacity: 0;
                 }
             }
@@ -486,7 +481,7 @@
 <nav class="navbar fixed w-full z-50 bg-white/90 backdrop-blur-sm">
     <div class="container mx-auto px-6 py-3 flex justify-between items-center">
         <a href="#home" onclick="event.preventDefault(); smoothScroll('home')" class="flex items-center">
-            <img src="static/images/fs_logo.png" alt="Fresh Start Cleaning Logo" class="h-12 mr-2">
+            <img src="static/images/fs_logo_transparent.png" alt="Fresh Start Cleaning Logo" class="h-12 mr-2">
             <span class="text-xl font-bold text-black">Fresh Start Cleaning</span>
         </a>
         <div id="nav-links" class="hidden md:flex space-x-8">
@@ -1748,6 +1743,7 @@ function setupMobileMenu() {
             createBubbles();
             createFooterBubbles();
             initStarRating();
+            displayStoredReviews();
             window.addEventListener('scroll', handleScroll);
             setupMobileMenu();
         });
@@ -1863,6 +1859,31 @@ function setupMobileMenu() {
             initStarRating();
         });
 
+        // Store reviews in localStorage and display them
+        function displayStoredReviews() {
+            const storedReviews = JSON.parse(localStorage.getItem('websiteReviews') || '[]');
+            const reviewsContainer = document.querySelector('#website-reviews .grid');
+            
+            if (storedReviews.length > 0 && reviewsContainer) {
+                // Clear existing sample reviews
+                reviewsContainer.innerHTML = '';
+                
+                // Add stored reviews
+                storedReviews.forEach(review => {
+                    const reviewCard = document.createElement('div');
+                    reviewCard.className = 'bg-white p-6 rounded-xl shadow-lg';
+                    reviewCard.innerHTML = `
+                        <div class="flex items-center mb-4">
+                            <div class="text-yellow-400 text-xl">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</div>
+                        </div>
+                        <p class="text-gray-700 mb-4">"${review.review}"</p>
+                        <div class="font-semibold text-gray-900">- ${review.name}</div>
+                    `;
+                    reviewsContainer.appendChild(reviewCard);
+                });
+            }
+        }
+
         // Handle review form submission
         function handleReviewSubmit(event) {
             event.preventDefault();
@@ -1877,36 +1898,26 @@ function setupMobileMenu() {
             
             const reviewData = {
                 name: formData.get('reviewName'),
-                rating: rating,
-                review: formData.get('reviewText')
+                rating: parseInt(rating),
+                review: formData.get('reviewText'),
+                date: new Date().toLocaleDateString()
             };
             
-            fetch('/submit-review', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(reviewData)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                alert('Thank you for your review!');
-                event.target.reset();
-                document.getElementById('rating-input').value = '0';
-                updateStarDisplay(0);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Review submitted successfully! (Note: This is a demo)');
-                event.target.reset();
-                document.getElementById('rating-input').value = '0';
-                updateStarDisplay(0);
-            });
+            // Store review locally
+            const existingReviews = JSON.parse(localStorage.getItem('websiteReviews') || '[]');
+            existingReviews.unshift(reviewData); // Add to beginning
+            localStorage.setItem('websiteReviews', JSON.stringify(existingReviews));
+            
+            // Display updated reviews
+            displayStoredReviews();
+            
+            alert('Thank you for your review! It now appears in our reviews section.');
+            event.target.reset();
+            document.getElementById('rating-input').value = '0';
+            updateStarDisplay(0);
+            
+            // Scroll to reviews section to show the new review
+            smoothScroll('website-reviews');
         }
     </script>
 </body>
