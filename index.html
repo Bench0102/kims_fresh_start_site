@@ -381,6 +381,28 @@
         model-viewer:hover {
             transform: scale(1.02);
         }
+        
+        /* Model Carousel Styles */
+        #hero-model-viewer {
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .model-dot {
+            transition: all 0.3s ease;
+        }
+
+        .model-dot:hover {
+            transform: scale(1.2);
+            bg-opacity: 0.8;
+        }
+
+        #prev-model, #next-model {
+            backdrop-filter: blur(10px);
+        }
+
+        #prev-model:hover, #next-model:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
     
         /* Service Cards */
         .service-card {
@@ -664,6 +686,21 @@
                 display: none !important;
             }
         }
+        
+        @media (max-width: 768px) {
+            #nav-links {
+                display: none !important; /* Force hide desktop nav on mobile */
+            }
+        }
+
+        @media (min-width: 768px) {
+            #mobile-menu-button {
+                display: none !important; /* Hide mobile menu button on desktop */
+            }
+            #mobile-nav-links {
+                display: none !important; /* Hide mobile nav on desktop */
+            }
+        }
     </style>
 </head>
 <body>
@@ -674,22 +711,28 @@
             <img src="/static/images/fs_logo_transparent.png" alt="Fresh Start Cleaning Logo" class="h-12 mr-2">
             <span class="text-xl font-bold text-black">Fresh Start Cleaning</span>
         </a>
+        
+        <!-- Desktop Navigation -->
         <div id="nav-links" class="hidden md:flex space-x-8">
-            <a href="#home" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('home'); toggleMenu()">Home</a>
-            <a href="#services" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('services'); toggleMenu()">Services</a>
-            <a href="#before-after" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('before-after'); toggleMenu()">Before & After</a>
-            <a href="#about" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('about'); toggleMenu()">About</a>
-            <a href="#testimonials" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('testimonials'); toggleMenu()">Testimonials</a>
-            <a href="#contact" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('contact'); toggleMenu()">Contact</a>
-            <a href="#reviews" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('reviews'); toggleMenu()">Leave a Review</a>
+            <a href="#home" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('home')">Home</a>
+            <a href="#services" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('services')">Services</a>
+            <a href="#before-after" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('before-after')">Before & After</a>
+            <a href="#about" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('about')">About</a>
+            <a href="#testimonials" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('testimonials')">Testimonials</a>
+            <a href="#contact" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('contact')">Contact</a>
+            <a href="#reviews" class="nav-link text-black font-semibold hover:text-orange-500" onclick="event.preventDefault(); smoothScroll('reviews')">Leave a Review</a>
         </div>
+        
+        <!-- Mobile Menu Button -->
         <button id="mobile-menu-button" class="md:hidden focus:outline-none" onclick="toggleMobileMenu()">
-            <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg class="w-6 h-6 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
         </button>
     </div>
-    <div id="mobile-nav-links" class="hidden absolute top-full left-0 right-0 bg-white shadow-lg md:hidden w-full z-50 border-t border-gray-200">
+    
+    <!-- Mobile Navigation Menu -->
+    <div id="mobile-nav-links" class="hidden md:hidden bg-white shadow-lg border-t border-gray-200 absolute top-full left-0 right-0 w-full z-50">
         <div class="flex flex-col">
             <a href="#home" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('home'); toggleMobileMenu()">Home</a>
             <a href="#services" class="block py-4 px-6 text-black font-semibold hover:text-orange-500 hover:bg-gray-50 border-b border-gray-100" onclick="event.preventDefault(); smoothScroll('services'); toggleMobileMenu()">Services</a>
@@ -715,30 +758,63 @@
                     Get a Free Quote
                 </button>
             </div>
-            <div class="w-full md:w-1/2 flex justify-center px-4">
-                <model-viewer
-                    src="/static/models/sample1.gltf"
-                    alt="Chicken Dance 3D Model"
-                    auto-rotate
-                    autoplay
-                    animation-name="*"
-                    animation-crossfade-duration="300ms"
-                    camera-target="0m .4m .5m"
-                    camera-orbit="0deg 75deg 3m"
-                    camera-controls
-                    shadow-intensity="1"
-                    background-color="transparent"
-                    style="width: 100%; height: 400px; max-width: 500px;"
-                    exposure="1"
-                    shadow-softness="0.5"
-                    camera-orbit="0deg 75deg 105%"
-                    min-camera-orbit="auto auto auto"
-                    max-camera-orbit="auto auto auto"
-                    interaction-prompt="none"
-                    loading="eager">
-                    <div slot="progress-bar" style="display: none;"></div>
-                </model-viewer>
+            <!-- 3D Model Carousel Container -->
+        <div class="w-full md:w-1/2 flex justify-center px-4 relative">
+            <!-- Previous Button - moved further from edge -->
+            <button id="prev-model" class="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/80 hover:bg-white text-orange-500 rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+            </button>
+            
+            <!-- Model Viewer -->
+            <model-viewer
+                id="hero-model-viewer"
+                src="/static/models/backflip.gltf"
+                alt="3D Animation Model"
+                auto-rotate
+                autoplay
+                animation-name="*"
+                animation-crossfade-duration="300ms"
+                camera-target="0m .4m .5m"
+                camera-orbit="0deg 75deg 3m"
+                camera-controls
+                shadow-intensity="1"
+                background-color="transparent"
+                style="width: 100%; height: 400px; max-width: 500px;"
+                exposure="1"
+                shadow-softness="0.5"
+                camera-orbit="0deg 75deg 105%"
+                min-camera-orbit="auto auto auto"
+                max-camera-orbit="auto auto auto"
+                interaction-prompt="none"
+                loading="eager">
+                <div slot="progress-bar" style="display: none;"></div>
+            </model-viewer>
+            
+            <!-- Next Button - moved further from edge -->
+            <button id="next-model" class="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/80 hover:bg-white text-orange-500 rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+            
+            <!-- Model Indicator Dots -->
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                <div class="model-dot w-3 h-3 rounded-full bg-white/60 cursor-pointer transition-all duration-300" data-model="0"></div>
+                <div class="model-dot w-3 h-3 rounded-full bg-white/60 cursor-pointer transition-all duration-300" data-model="1"></div>
+                <div class="model-dot w-3 h-3 rounded-full bg-white/60 cursor-pointer transition-all duration-300" data-model="2"></div>
+                <div class="model-dot w-3 h-3 rounded-full bg-white/60 cursor-pointer transition-all duration-300" data-model="3"></div>
+                <div class="model-dot w-3 h-3 rounded-full bg-white/60 cursor-pointer transition-all duration-300" data-model="4"></div>
+                <div class="model-dot w-3 h-3 rounded-full bg-white/60 cursor-pointer transition-all duration-300" data-model="5"></div>
+                <div class="model-dot w-3 h-3 rounded-full bg-white/60 cursor-pointer transition-all duration-300" data-model="6"></div>
             </div>
+            
+            <!-- Model Name Display -->
+            <div class="absolute top-4 left-1/2 transform -translate-x-1/2 bg-white/90 text-orange-500 px-4 py-2 rounded-full font-semibold text-sm">
+                <span id="current-model-name">Backflip</span>
+            </div>
+        </div>
         </div>
 
         <!-- Wave Divider -->
@@ -1217,89 +1293,156 @@
                 <div class="w-20 h-1 bg-orange-500 mx-auto"></div>
             </div>
 
-            <!-- Facebook Reviews Header -->
-            <h3 class="text-2xl font-bold text-black mb-8 text-center">Facebook Reviews</h3>
+            <!-- Side by Side Reviews Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Facebook Reviews Section (Left Side) -->
+                <div class="facebook-reviews-section">
+                    <!-- Add card wrapper with border and shadow -->
+                    <div class="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-gray-200 hover:shadow-[0_12px_40px_rgba(0,0,0,0.18)] transition-all duration-300">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-black mb-4">Facebook Reviews</h3>
+                            
+                            <!-- Facebook Rating Display -->
+                            <div class="flex items-center justify-center mb-6">
+                                <div class="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2">
+                                    <span class="text-2xl font-bold">4.9</span>
+                                    <div class="flex text-yellow-300">
+                                        <span>★★★★★</span>
+                                    </div>
+                                    <span class="text-sm">(8)</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 100% Recommend Text -->
+                            <div class="mb-6">
+                                <span class="text-lg font-semibold text-gray-800">100% recommend (8 Reviews)</span>
+                            </div>
+                            
+                            <!-- Show Facebook Reviews Button -->
+                            <button id="show-facebook-reviews-btn" onclick="toggleFacebookReviews()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300">
+                                Show Facebook Reviews
+                            </button>
+                        </div>
 
-            <!-- Facebook Reviews Row -->
-            <div id="testimonials-container" class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-16 max-h-[800px] overflow-hidden transition-all duration-500">
-                <div class="bg-white p-4 md:p-6 pb-6 md:pb-8 mb-4 rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] transition-shadow duration-300">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 text-xl">★★★★★</div>
-                    </div>
-                    <!-- Mobile fallback content -->
-                    <div class="facebook-review-fallback block md:hidden">
-                        <p class="text-gray-700 italic mb-3">"Excellent cleaning service! Very professional and thorough. Kim's team did an amazing job on my home."</p>
-                        <div class="flex justify-between items-center">
-                            <p class="text-sm text-gray-500 font-medium">- Jennifer S.</p>
-                            <a href="https://www.facebook.com/jensaid3/posts/pfbid0CHBkYy7VhWQ8a48AZ8fPqVXsZCYiaHtL5x9cjhEZTDvB1LsxQYwnaYoaM5v489bRl" target="_blank" class="text-blue-600 text-xs hover:underline">View on Facebook</a>
+                        <!-- Facebook Reviews Container (Initially Hidden) -->
+                        <div id="facebook-reviews-container" class="hidden space-y-6">
+                            <div class="bg-white p-4 md:p-6 pb-6 md:pb-8 rounded-xl shadow-[0_6px_25px_rgba(0,0,0,0.15)] border border-gray-100 hover:shadow-[0_10px_35px_rgba(0,0,0,0.2)] transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-yellow-400 text-xl">★★★★★</div>
+                                </div>
+                                <!-- Mobile fallback content -->
+                                <div class="facebook-review-fallback block md:hidden">
+                                    <p class="text-gray-700 italic mb-3">"Excellent cleaning service! Very professional and thorough. Kim's team did an amazing job on my home."</p>
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-sm text-gray-500 font-medium">- Jennifer S.</p>
+                                        <a href="https://www.facebook.com/jensaid3/posts/pfbid0CHBkYy7VhWQ8a48AZ8fPqVXsZCYiaHtL5x9cjhEZTDvB1LsxQYwnaYoaM5v489bRl" target="_blank" class="text-blue-600 text-xs hover:underline">View on Facebook</a>
+                                    </div>
+                                </div>
+                                <!-- Desktop iframe -->
+                                <iframe class="hidden md:block" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fjensaid3%2Fposts%2Fpfbid0CHBkYy7VhWQ8a48AZ8fPqVXsZCYiaHtL5x9cjhEZTDvB1LsxQYwnaYoaM5v489bRl&show_text=true&width=500" width="100%" height="188" style="border:none;overflow:hidden" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                            </div>
+                            
+                            <div class="bg-white p-4 md:p-6 pb-6 md:pb-8 rounded-xl shadow-[0_6px_25px_rgba(0,0,0,0.15)] border border-gray-100 hover:shadow-[0_10px_35px_rgba(0,0,0,0.2)] transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-yellow-400 text-xl">★★★★★</div>
+                                </div>
+                                <!-- Mobile fallback content -->
+                                <div class="facebook-review-fallback block md:hidden">
+                                    <p class="text-gray-700 italic mb-3">"Amazing work! My house has never been cleaner. Highly recommend Kim's Fresh Start Cleaning!"</p>
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-sm text-gray-500 font-medium">- Maria R.</p>
+                                        <a href="https://www.facebook.com/BoricuaRealtor/posts/pfbid02ebccYS9J61SLNtQRvQXTkhvJtJN1TGmpeQ2HdfnxmzRyxJoYJ3iU2cvwpQWGx83Hl" target="_blank" class="text-blue-600 text-xs hover:underline">View on Facebook</a>
+                                    </div>
+                                </div>
+                                <!-- Desktop iframe -->
+                                <iframe class="hidden md:block" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FBoricuaRealtor%2Fposts%2Fpfbid02ebccYS9J61SLNtQRvQXTkhvJtJN1TGmpeQ2HdfnxmzRyxJoYJ3iU2cvwpQWGx83Hl&show_text=true&width=500" width="100%" height="188" style="border:none;overflow:hidden" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                            </div>
+                            
+                            <div class="bg-white p-4 md:p-6 pb-6 md:pb-8 rounded-xl shadow-[0_6px_25px_rgba(0,0,0,0.15)] border border-gray-100 hover:shadow-[0_10px_35px_rgba(0,0,0,0.2)] transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-yellow-400 text-xl">★★★★★</div>
+                                </div>
+                                <!-- Mobile fallback content -->
+                                <div class="facebook-review-fallback block md:hidden">
+                                    <p class="text-gray-700 italic mb-3">"Professional, reliable, and affordable. Great communication and attention to detail!"</p>
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-sm text-gray-500 font-medium">- Katie T.</p>
+                                        <a href="https://www.facebook.com/katie.h.tracy/posts/pfbid0G76pQnjY9QySzVCivGfmBsm3dAXX7V1eZ5MQWRkhEwaZ85AWUtFwyUZE6foXheqEl" target="_blank" class="text-blue-600 text-xs hover:underline">View on Facebook</a>
+                                    </div>
+                                </div>
+                                <!-- Desktop iframe -->
+                                <iframe class="hidden md:block" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fkatie.h.tracy%2Fposts%2Fpfbid0G76pQnjY9QySzVCivGfmBsm3dAXX7V1eZ5MQWRkhEwaZ85AWUtFwyUZE6foXheqEl&show_text=true&width=500" width="100%" height="188" style="border:none;overflow:hidden" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                            </div>
                         </div>
                     </div>
-                    <!-- Desktop iframe -->
-                    <iframe class="hidden md:block" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fjensaid3%2Fposts%2Fpfbid0CHBkYy7VhWQ8a48AZ8fPqVXsZCYiaHtL5x9cjhEZTDvB1LsxQYwnaYoaM5v489bRl&show_text=true&width=500" width="100%" height="188" style="border:none;overflow:hidden" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                </div>
-                <div class="bg-white p-4 md:p-6 pb-6 md:pb-8 mb-4 rounded-xl shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 text-xl">★★★★★</div>
-                    </div>
-                    <!-- Mobile fallback content -->
-                    <div class="facebook-review-fallback block md:hidden">
-                        <p class="text-gray-700 italic mb-3">"Amazing work! My house has never been cleaner. Highly recommend Kim's Fresh Start Cleaning!"</p>
-                        <div class="flex justify-between items-center">
-                            <p class="text-sm text-gray-500 font-medium">- Maria R.</p>
-                            <a href="https://www.facebook.com/BoricuaRealtor/posts/pfbid02ebccYS9J61SLNtQRvQXTkhvJtJN1TGmpeQ2HdfnxmzRyxJoYJ3iU2cvwpQWGx83Hl" target="_blank" class="text-blue-600 text-xs hover:underline">View on Facebook</a>
-                        </div>
-                    </div>
-                    <!-- Desktop iframe -->
-                    <iframe class="hidden md:block" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FBoricuaRealtor%2Fposts%2Fpfbid02ebccYS9J61SLNtQRvQXTkhvJtJN1TGmpeQ2HdfnxmzRyxJoYJ3iU2cvwpQWGx83Hl&show_text=true&width=500" width="100%" height="188" style="border:none;overflow:hidden" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                </div>
-                <div class="bg-white p-4 md:p-6 pb-6 md:pb-8 mb-4 rounded-xl shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 text-xl">★★★★★</div>
-                    </div>
-                    <!-- Mobile fallback content -->
-                    <div class="facebook-review-fallback block md:hidden">
-                        <p class="text-gray-700 italic mb-3">"Professional, reliable, and affordable. Great communication and attention to detail!"</p>
-                        <div class="flex justify-between items-center">
-                            <p class="text-sm text-gray-500 font-medium">- Katie T.</p>
-                            <a href="https://www.facebook.com/katie.h.tracy/posts/pfbid0G76pQnjY9QySzVCivGfmBsm3dAXX7V1eZ5MQWRkhEwaZ85AWUtFwyUZE6foXheqEl" target="_blank" class="text-blue-600 text-xs hover:underline">View on Facebook</a>
-                        </div>
-                    </div>
-                    <!-- Desktop iframe -->
-                    <iframe class="hidden md:block" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fkatie.h.tracy%2Fposts%2Fpfbid0G76pQnjY9QySzVCivGfmBsm3dAXX7V1eZ5MQWRkhEwaZ85AWUtFwyUZE6foXheqEl&show_text=true&width=500" width="100%" height="188" style="border:none;overflow:hidden" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                </div>
-            </div>
-
-            <!-- Website Reviews Header -->
-            <h3 class="text-2xl font-bold text-black mb-8 text-center">Website Reviews</h3>
-
-            <!-- Customer Reviews Row -->
-            <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <div class="bg-white p-6 rounded-xl shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 text-xl">★★★★★</div>
-                    </div>
-                    <p class="text-gray-700 mb-4">"Absolutely amazing service! My house has never been cleaner. The team was professional and thorough."</p>
-                    <div class="font-semibold text-gray-900">- Sarah M.</div>
                 </div>
                 
-                <div class="bg-white p-6 rounded-xl shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 text-xl">★★★★★</div>
+                <!-- Website Reviews Section (Right Side) -->
+                <div class="website-reviews-section">
+                    <!-- Add card wrapper with border and shadow -->
+                    <div class="bg-white p-8 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] border border-gray-200 hover:shadow-[0_12px_40px_rgba(0,0,0,0.18)] transition-all duration-300">
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-black mb-4">Website Reviews</h3>
+                            
+                            <!-- Website Reviews Header with 0 data -->
+                            <div class="bg-blue-500 text-white px-6 py-3 rounded-lg inline-block mb-4">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-2xl font-bold">0.0</span>
+                                    <div class="flex text-yellow-300">
+                                        <span>☆☆☆☆☆</span>
+                                    </div>
+                                    <span class="text-sm">(0)</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <span class="text-lg font-semibold text-gray-700">0% recommend (0 Reviews)</span>
+                            </div>
+                            
+                            <button id="show-website-reviews-btn" onclick="toggleWebsiteReviews()" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-lg transition-all duration-300">
+                                Show Website Reviews
+                            </button>
+                        </div>
+
+                        <!-- Website Reviews Container -->
+                        <div id="website-reviews-container" class="hidden space-y-6">
+                            <!-- Empty placeholder cards with enhanced styling -->
+                            <div class="bg-white p-6 rounded-xl shadow-[0_6px_25px_rgba(0,0,0,0.1)] border-2 border-dashed border-gray-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)] transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-gray-300 text-xl">☆☆☆☆☆</div>
+                                </div>
+                                <p class="text-gray-400 mb-4 italic">Your review could be here...</p>
+                                <div class="font-semibold text-gray-400">- Be the first to review</div>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-xl shadow-[0_6px_25px_rgba(0,0,0,0.1)] border-2 border-dashed border-gray-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)] transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-gray-300 text-xl">☆☆☆☆☆</div>
+                                </div>
+                                <p class="text-gray-400 mb-4 italic">Share your experience...</p>
+                                <div class="font-semibold text-gray-400">- Your name here</div>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-xl shadow-[0_6px_25px_rgba(0,0,0,0.1)] border-2 border-dashed border-gray-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)] transition-all duration-300">
+                                <div class="flex items-center mb-4">
+                                    <div class="text-gray-300 text-xl">☆☆☆☆☆</div>
+                                </div>
+                                <p class="text-gray-400 mb-4 italic">Tell others about our service...</p>
+                                <div class="font-semibold text-gray-400">- Leave a review</div>
+                            </div>
+                            
+                            <!-- Dynamic reviews container -->
+                            <div id="website-reviews" class="space-y-6">
+                                <!-- Reviews will be dynamically added here when users submit them -->
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-gray-700 mb-4">"Fresh Start Cleaning exceeded my expectations. Reliable, affordable, and excellent quality work."</p>
-                    <div class="font-semibold text-gray-900">- Mike R.</div>
-                </div>
-                
-                <div class="bg-white p-6 rounded-xl shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400 text-xl">★★★★★</div>
-                    </div>
-                    <p class="text-gray-700 mb-4">"I love coming home to a spotless house. The team is trustworthy and does incredible work every time."</p>
-                    <div class="font-semibold text-gray-900">- Jennifer L.</div>
                 </div>
             </div>
             
-            <div class="text-center">
+            <!-- Leave Your Review Button -->
+            <div class="text-center mt-16">
                 <button onclick="smoothScroll('reviews')" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition-all duration-300">
                     Leave Your Review
                 </button>
@@ -1442,28 +1585,44 @@
             window.scrollTo({ top: offset, behavior: 'smooth' });
         }
 
-        function toggleMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('hidden');
-        }
 
         function toggleMobileMenu() {
             const mobileNavLinks = document.getElementById('mobile-nav-links');
             const menuButton = document.getElementById('mobile-menu-button');
-            const menuIcon = menuButton.querySelector('svg');
+            const menuIcon = menuButton.querySelector('svg path');
             
             if (mobileNavLinks.classList.contains('hidden')) {
                 // Show menu
                 mobileNavLinks.classList.remove('hidden');
                 // Change hamburger to X
-                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+                menuIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
             } else {
                 // Hide menu
                 mobileNavLinks.classList.add('hidden');
                 // Change X back to hamburger
-                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
             }
         }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileNavLinks = document.getElementById('mobile-nav-links');
+            const menuButton = document.getElementById('mobile-menu-button');
+            
+            if (mobileNavLinks && !mobileNavLinks.classList.contains('hidden')) {
+                if (!mobileNavLinks.contains(event.target) && !menuButton.contains(event.target)) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', function() {
+            const mobileNavLinks = document.getElementById('mobile-nav-links');
+            if (window.innerWidth >= 768 && mobileNavLinks && !mobileNavLinks.classList.contains('hidden')) {
+                toggleMobileMenu();
+            }
+        });
 
         function toggleTestimonials(event) {
             if (event) event.preventDefault();
@@ -1623,13 +1782,6 @@
             });
         }
 
-        // Toggle menu function
-        function toggleMenu() {
-            const navLinks = document.getElementById('nav-links');
-            if (window.innerWidth < 768) { // Only collapse on mobile
-                navLinks.classList.toggle('hidden');
-            }
-        }
 
         // 3D Penguin Animation
         function initAnimation(containerId, modelPath, scale = 0.05) {
@@ -1735,14 +1887,6 @@
         }
 
 
-        // Toggle menu function
-        function toggleMenu() {
-            const navLinks = document.getElementById('nav-links');
-            if (window.innerWidth < 768) { // Only collapse on mobile
-                navLinks.classList.add('hidden');
-            }
-        }
-
         
         // Navbar scroll effect
         function handleScroll() {
@@ -1760,23 +1904,7 @@
 
 
 
-       // Mobile menu toggle
-       function setupMobileMenu() {
-            const menuButton = document.querySelector('button.md\\:hidden');
-            if (menuButton) {
-                menuButton.addEventListener('click', () => {
-                    const navLinks = document.querySelector('.md\\:flex.space-x-8');
-                    if (navLinks) {
-                        navLinks.classList.toggle('hidden');
-                        navLinks.classList.toggle('flex');
-                        navLinks.classList.toggle('flex-col');
-                        navLinks.classList.toggle('absolute');
-                        navLinks.classList.toggle('top-16');
-                        navLinks.classList.toggle('left-0');
-                    }
-                });
-            }
-        }
+
 </script>
 
     
@@ -1792,28 +1920,43 @@
             });
         }
 
-        function toggleMenu() {
-            const navLinks = document.getElementById('nav-links');
-            navLinks.classList.toggle('hidden');
-        }
-
         function toggleMobileMenu() {
             const mobileNavLinks = document.getElementById('mobile-nav-links');
             const menuButton = document.getElementById('mobile-menu-button');
-            const menuIcon = menuButton.querySelector('svg');
+            const menuIcon = menuButton.querySelector('svg path');
             
             if (mobileNavLinks.classList.contains('hidden')) {
                 // Show menu
                 mobileNavLinks.classList.remove('hidden');
                 // Change hamburger to X
-                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+                menuIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
             } else {
                 // Hide menu
                 mobileNavLinks.classList.add('hidden');
                 // Change X back to hamburger
-                menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
             }
         }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileNavLinks = document.getElementById('mobile-nav-links');
+            const menuButton = document.getElementById('mobile-menu-button');
+            
+            if (mobileNavLinks && !mobileNavLinks.classList.contains('hidden')) {
+                if (!mobileNavLinks.contains(event.target) && !menuButton.contains(event.target)) {
+                    toggleMobileMenu();
+                }
+            }
+        });
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', function() {
+            const mobileNavLinks = document.getElementById('mobile-nav-links');
+            if (window.innerWidth >= 768 && mobileNavLinks && !mobileNavLinks.classList.contains('hidden')) {
+                toggleMobileMenu();
+            }
+        });
 
         function toggleTestimonials(event) {
             if (event) event.preventDefault();
@@ -1930,22 +2073,7 @@
                 }
             }
 
-            function setupMobileMenu() {
-                const menuButton = document.querySelector('button.md\\:hidden');
-                if (menuButton) {
-                    menuButton.addEventListener('click', () => {
-                        const navLinks = document.querySelector('.md\\:flex.space-x-8');
-                        if (navLinks) {
-                            navLinks.classList.toggle('hidden');
-                            navLinks.classList.toggle('flex');
-                            navLinks.classList.toggle('flex-col');
-                            navLinks.classList.toggle('absolute');
-                            navLinks.classList.toggle('top-16');
-                            navLinks.classList.toggle('left-0');
-                        }
-                    });
-                }
-            }
+
 
             // Initialize all required functionality
             initBeforeAfterSliders();
@@ -1954,7 +2082,6 @@
             initStarRating();
             displayStoredReviews();
             window.addEventListener('scroll', handleScroll);
-            setupMobileMenu();
         });
 
 
@@ -2084,10 +2211,10 @@
         // Store reviews in localStorage and display them
         function displayStoredReviews() {
             const storedReviews = JSON.parse(localStorage.getItem('websiteReviews') || '[]');
-            const reviewsContainer = document.querySelector('#website-reviews .grid');
+            const reviewsContainer = document.getElementById('website-reviews');
             
             if (storedReviews.length > 0 && reviewsContainer) {
-                // Clear existing sample reviews
+                // Clear existing reviews
                 reviewsContainer.innerHTML = '';
                 
                 // Add stored reviews
@@ -2138,9 +2265,175 @@
             document.getElementById('rating-input').value = '0';
             updateStarDisplay(0);
             
-            // Scroll to reviews section to show the new review
-            smoothScroll('website-reviews');
+            // Show website reviews section and scroll to it
+            const websiteReviewsContainer = document.getElementById('website-reviews-container');
+            if (websiteReviewsContainer && websiteReviewsContainer.classList.contains('hidden')) {
+                toggleWebsiteReviews();
+            }
+            smoothScroll('testimonials');
         }
+
+        // 3D Model Carousel
+        class ModelCarousel {
+            constructor() {
+                this.models = [
+                    { path: '/static/models/backflip.gltf', name: 'Backflip', alt: 'Backflip Animation' },
+                    { path: '/static/models/Chicken_dance.gltf', name: 'Chicken Dance', alt: 'Chicken Dance Animation' },
+                    { path: '/static/models/dancingtwerk.gltf', name: 'Dancing Twerk', alt: 'Dancing Twerk Animation' },
+                    { path: '/static/models/hiphop.gltf', name: 'Hip Hop', alt: 'Hip Hop Dance Animation' },
+                    { path: '/static/models/maraschino.gltf', name: 'Maraschino Step', alt: 'Maraschino Step Animation' },
+                    { path: '/static/models/run-to-flip.gltf', name: 'Run to Flip', alt: 'Run to Flip Animation' },
+                    { path: '/static/models/Flair.gltf', name: 'Flair', alt: 'Flair Animation' }
+                ];
+                
+                this.currentIndex = 0;
+                this.modelViewer = document.getElementById('hero-model-viewer');
+                this.modelNameDisplay = document.getElementById('current-model-name');
+                this.dots = document.querySelectorAll('.model-dot');
+                
+                this.init();
+            }
+            
+            init() {
+                // Set up navigation buttons
+                document.getElementById('prev-model').addEventListener('click', () => this.previousModel());
+                document.getElementById('next-model').addEventListener('click', () => this.nextModel());
+                
+                // Set up dot indicators
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToModel(index));
+                });
+                
+                // Auto-advance every 10 seconds (optional)
+                this.autoAdvanceInterval = setInterval(() => this.nextModel(), 10000);
+                
+                // Pause auto-advance on hover
+                this.modelViewer.addEventListener('mouseenter', () => this.pauseAutoAdvance());
+                this.modelViewer.addEventListener('mouseleave', () => this.resumeAutoAdvance());
+                
+                // Initialize first model
+                this.updateModel();
+            }
+            
+            nextModel() {
+                this.currentIndex = (this.currentIndex + 1) % this.models.length;
+                this.updateModel();
+            }
+            
+            previousModel() {
+                this.currentIndex = (this.currentIndex - 1 + this.models.length) % this.models.length;
+                this.updateModel();
+            }
+            
+            goToModel(index) {
+                this.currentIndex = index;
+                this.updateModel();
+            }
+            
+            updateModel() {
+                const currentModel = this.models[this.currentIndex];
+                
+                // Update model viewer with error handling
+                this.modelViewer.src = currentModel.path;
+                this.modelViewer.alt = currentModel.alt;
+                
+                // Update model name display
+                this.modelNameDisplay.textContent = currentModel.name;
+                
+                // Update dot indicators
+                this.dots.forEach((dot, index) => {
+                    if (index === this.currentIndex) {
+                        dot.classList.remove('bg-white/60');
+                        dot.classList.add('bg-white', 'scale-125');
+                    } else {
+                        dot.classList.remove('bg-white', 'scale-125');
+                        dot.classList.add('bg-white/60');
+                    }
+                });
+                
+                // Add loading animation with error handling
+                this.modelViewer.style.opacity = '0.7';
+                
+                // Handle successful load
+                this.modelViewer.addEventListener('load', () => {
+                    this.modelViewer.style.opacity = '1';
+                }, { once: true });
+                
+                // Handle loading errors
+                this.modelViewer.addEventListener('error', () => {
+                    console.warn(`Failed to load model: ${currentModel.path}`);
+                    this.modelViewer.style.opacity = '1';
+                    // Optionally skip to next working model
+                    // this.nextModel();
+                }, { once: true });
+            }
+            
+            pauseAutoAdvance() {
+                if (this.autoAdvanceInterval) {
+                    clearInterval(this.autoAdvanceInterval);
+                    this.autoAdvanceInterval = null;
+                }
+            }
+            
+            resumeAutoAdvance() {
+                if (!this.autoAdvanceInterval) {
+                    this.autoAdvanceInterval = setInterval(() => this.nextModel(), 10000);
+                }
+            }
+        }
+
+        // Toggle Facebook Reviews visibility
+        function toggleFacebookReviews() {
+            const container = document.getElementById('facebook-reviews-container');
+            const button = document.getElementById('show-facebook-reviews-btn');
+            
+            if (!container || !button) return;
+            
+            if (container.classList.contains('hidden')) {
+                // Show Facebook reviews
+                container.classList.remove('hidden');
+                button.textContent = 'Hide Facebook Reviews';
+                button.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                button.classList.add('bg-gray-600', 'hover:bg-gray-700');
+            } else {
+                // Hide Facebook reviews
+                container.classList.add('hidden');
+                button.textContent = 'Show Facebook Reviews';
+                button.classList.remove('bg-gray-600', 'hover:bg-gray-700');
+                button.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            }
+        }
+        
+        // Toggle Website Reviews visibility
+        function toggleWebsiteReviews() {
+            const container = document.getElementById('website-reviews-container');
+            const button = document.getElementById('show-website-reviews-btn');
+            
+            if (!container || !button) return;
+            
+            if (container.classList.contains('hidden')) {
+                // Show website reviews
+                container.classList.remove('hidden');
+                button.textContent = 'Hide Website Reviews';
+                button.classList.remove('bg-orange-500', 'hover:bg-orange-600');
+                button.classList.add('bg-gray-600', 'hover:bg-gray-700');
+            } else {
+                // Hide website reviews
+                container.classList.add('hidden');
+                button.textContent = 'Show Website Reviews';
+                button.classList.remove('bg-gray-600', 'hover:bg-gray-700');
+                button.classList.add('bg-orange-500', 'hover:bg-orange-600');
+            }
+        }
+
+        // Initialize the carousel when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new ModelCarousel();
+        });
+
+        // Make toggleFacebookReviews available globally
+        window.toggleFacebookReviews = toggleFacebookReviews;
+        window.toggleWebsiteReviews = toggleWebsiteReviews;
     </script>
 </body>
 </html>
